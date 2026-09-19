@@ -1,11 +1,158 @@
-# Your harness
+# CLAUDE.md
 
-This file is yours, and it arrives with no rules in it on purpose --- this note
-is all there is, and it goes when you write your own. The rules you hold the
-agent to are part of what gets marked, so they should be rules you decided on.
+Project rules for this repository. Read this before writing or changing any
+code.
 
-Nothing about the starter is recorded here. The platform under you is fixed and
-documented in `README.md`, and the
+The
 [course website](https://comp.anu.edu.au/courses/comp4020-agentic-coding-studio/)
-publishes this deliverable's brief and spec. Read both before you plan or build;
-what the agent needs to carry from either is your call.
+publishes this deliverable's brief and spec (Assignment 2, a whole course
+website for a course of your own design). The deployed site is what gets
+marked, not this repo, and `PROCESS.md` is read against the commit history
+behind it.
+
+## What this is
+
+> TODO: replace this section with the course. One paragraph on what it is, who
+> it is for, and the single idea it carries for twelve weeks. Write it before
+> asking the agent for any content, because every page has to agree with it.
+
+The platform is Slop University and the course is mine. A marker reads this
+site the way a prospective student would, for about ten minutes: the home page,
+a few non-adjacent weeks, an assessment, the deck, the policies page, at both
+viewports. Twelve weeks that repeat one another is the failure mode to design
+against.
+
+## Hard constraints
+
+These are not negotiable. If a change would break one, stop and say so instead
+of working around it.
+
+- **The platform is fixed and the course is mine.** The Slop identity
+  (`astro-theme-slop`, the palette, the `src/site-config.ts` branding), the
+  four content collections and their keys, the build pipeline in
+  `astro.config.ts` and the generated API stay as they arrived. Adding is
+  always allowed: a new collection, a page outside the collections, a component
+  the theme lacks. Changing the fixed parts is not.
+- **The course code keeps `034`.** It was allocated to this repo and no other
+  course in the cohort has it. Only the first digit is mine, and `level` in
+  `src/course-config.ts` must equal it or the schema refuses to parse.
+- **Twelve dated teaching weeks**, with every dated item inside `startDate` and
+  `endDate`. `spec/data-integrity.test.ts` is the check that holds this.
+- **Assessment weights add up to 100%.**
+- **At least one lecture carries a real deck**, linked from its page.
+- **Every `STARTER_CONTENT` fragment is replaced and its marker removed**, and
+  the four starter images go too (`card.png`, `hero-home.avif`, and both people
+  portraits). `pnpm check:evidence` lists them by file and line.
+- **`PROCESS.md` runs to 400 to 600 words** with commit citations that resolve.
+  An uncited claim is not evidence, and the check fails a file with no
+  citations in it. There is no separate reflection for this assignment.
+- Static throughout, deployed to GitHub Pages, working at both marking
+  viewports.
+- `pnpm check` passes before any commit. `pnpm check:evidence` passes before
+  shipping.
+- The repo stays private until the cutoff.
+
+## How to work in here
+
+- Keep the dev server running (`pnpm dev`) so you see changes as you make them.
+  The address is `http://localhost:4321/comp4020-ass2-ohlai/`. The bare
+  `http://localhost:4321` that Astro prints is a 404, because the site is
+  served under its base path.
+- Run `pnpm check` before you push.
+- Open the page in a browser and look at it, at both viewports. The rendered
+  page is the truth; your mental model of it isn't.
+- **Read the site as a stranger would.** A test can confirm twelve sessions
+  exist and that their dates sit inside the teaching period. Only reading tells
+  you whether those twelve weeks are one course or twelve unrelated topics
+  under a shared banner. That judgement is the largest part of the mark and
+  nothing in `check` touches it.
+- **Content the agent writes is a draft, not a delivery.** An agent will
+  produce content-shaped chunks all day. Making them hang together, and sound
+  like one person with a position, is my job. Reject prose that could belong to
+  any course.
+- When a check fails, read its output before you change anything.
+- Never commit a red state.
+
+## The checks
+
+`pnpm check` runs type checking, the production build and the `spec/` tests.
+`pnpm check:evidence` is the extra gate before shipping: starter fragments,
+starter imagery, the `PROCESS.md` boilerplate comment, and whether the cited
+commits resolve. CI runs the same plus the secret scan and the deploy, and both
+CI jobs are gated on the repo being public, so local `pnpm check` is the only
+feedback loop until the cutoff.
+
+`pnpm build` is itself several checks: axe over every rendered page, internal
+links against the base path, dangling content refs, deck compilation, and the
+generated API.
+
+`spec/README.md` draws the line between a **contract test**, which retires with
+the brief it answers, and a **sensor**, which is harness and comes with me into
+the next repo.
+
+When something breaks, fix the check or add a new one. Do not retry until it
+passes by chance.
+
+### Facts about this stack that are easy to get wrong
+
+- **`defaultLayout` does not reach `.mdx` pages.** The theme applies it through
+  a custom `markdown.processor`, and `@astrojs/mdx` does not use that
+  processor. A `.md` page picks the layout up and a `.mdx` page silently does
+  not: it builds as a bare fragment with no `<html lang>`, no `<head>` and no
+  `<title>`, which the axe pass then reports as document-title, html-has-lang
+  and region. Nothing in the output says the page has no layout. Name the
+  layout in the frontmatter of every `.mdx` page under `src/pages/`:
+  `layout: ../../layouts/PageLayout.astro`. Fixed in `eda03a9`, and the same
+  trap waits on every new `.mdx` page.
+- **The collection key is the whole address.** `sessions/week-01` is the file
+  `src/content/sessions/week-01.md`, the page `/sessions/week-01/`, the JSON at
+  `/api/sessions/week-01.json`, and the ref other pages link by. Renaming one
+  means renaming all four.
+- **A `related:` ref that does not resolve fails the build.** That is the
+  point: a dangling link is caught before it ships. The edge renders on both
+  pages, so declare it on whichever side is convenient, once.
+- **A hand-written root-absolute link in an `.astro` file skips the base path.**
+  `href="/sessions/"` works on localhost and 404s on the live site. Markdown
+  links and the theme's components are rewritten for you; hand-written ones are
+  not. The build's link checker catches most of it.
+- **`node_modules/.astro` holds the font cache.** Deleting it makes the next
+  build fetch font metrics over the network, so a clean-cache build fails with
+  `fetch failed` when the network is unavailable. Do not clear it to get a
+  clean build.
+- **A deck is not a collection entry**, so it has no `related:` edges. Link it
+  from its lecture page with a markdown link (`[Slides](/decks/week-01/)`) and
+  the build rewrites it for the base path.
+- `published: false` removes an entry from the production build entirely but
+  leaves it visible in `pnpm dev`. `draft: true` keeps the page and marks it as
+  not final. The two are orthogonal.
+- The content schemas pass through keys they do not declare: an invented
+  frontmatter key survives validation and lands in that node's `meta` in the
+  generated API. The reserved names are `title`, `description`, `tags`,
+  `related`, `links`, `spec` and `published`.
+- `src/course-config.ts` is the single source for the course record. The home
+  page, navigation and `/api/index.json` all read it, so do not restate those
+  facts in page content.
+- The axe pass runs against the **built** site, so `pnpm build` must run before
+  it. `pnpm check` does this in order.
+
+## Working style
+
+- One change per commit, with a message saying what changed and why.
+- When a failure has a root cause, fix the cause and add a check for it. Do not
+  patch the symptom and move on.
+- When an approach is abandoned, say so in the commit message rather than
+  quietly deleting it.
+- If a requested change conflicts with anything in this file, stop and raise it
+  before making the change.
+
+## This file is yours
+
+A starting point, not a rulebook: what I add to it is the harness, and the
+harness is assessed. As I learn what this site needs, a convention the work has
+to hold to, a sensor that keeps catching me out, a fact about the stack that is
+easy to get wrong, it gets written down here and wired into `check`. Growing
+this file is the work.
+
+This file and the sensors wired into `check` carry across the course. Both come
+with me into the next repo. The site does not: content, and the tests answering
+this brief, stay behind. `spec/README.md` draws the line.
