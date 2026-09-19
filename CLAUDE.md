@@ -71,7 +71,11 @@ of working around it.
   like one person with a position, is my job. Reject prose that could belong to
   any course.
 - When a check fails, read its output before you change anything.
-- Never commit a red state.
+- **Never commit a regression.** Anything that was green stays green. The one
+  exception is `spec/assignment-2.test.ts`, which is this brief turned into
+  contracts and is red on purpose until the course is built. Red to green
+  across those is the work, and the commits that turn each one green are the
+  process evidence `PROCESS.md` cites. Never make one pass by weakening it.
 
 ## The checks
 
