@@ -7,7 +7,7 @@ week: 6
 date: 2027-03-22
 serves:
   - T2
-extra: the barrier that folds a queue back
+extra: barrier that folds a queue back
 readings:
   - cite: "Norman, D. A. (2008). The Psychology of Waiting Lines. jnd.org."
     source: https://jnd.org/the-psychology-of-waiting-lines/
