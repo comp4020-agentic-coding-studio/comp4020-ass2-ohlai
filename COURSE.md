@@ -66,7 +66,53 @@ Twelve weeks. Each is a `### Week N. Title` heading followed by two fields.
 `key-term:` is the single term the week installs. Both are unique across the
 twelve, which `spec/distinctness.test.ts` holds.
 
-<!-- BLOCKED: no week list supplied. See notes/questions.md, question 2. -->
+### Week 1. The Clock and the Feeling
+- does: establishes that measured duration and felt duration are two different quantities, and that the gap between them is the course's object
+- key-term: perceived duration
+
+### Week 2. Three Thresholds
+- does: converts the perception gap into the engineering thresholds that decide which affordance a delay is given
+- key-term: response-time threshold
+
+### Week 3. The Throbber
+- does: reads the indeterminate spinner as a component that communicates only that something is happening, and asks what that silence is for
+- key-term: indeterminate progress
+
+### Week 4. Ninety-Nine Percent
+- does: turns to determinate progress, where the system tells you something and the something is false
+- key-term: progress dynamics
+
+### Week 5. The Labour Illusion
+- does: introduces showing work as a substitute for doing it faster
+- key-term: operational transparency
+
+### Week 6. Occupied Time
+- does: catalogues the techniques that consume the waiter's attention rather than reduce the wait
+- key-term: occupied time
+
+### Week 7. Fairness Before Speed
+- does: separates duration from justice, and shows people choosing the slower queue because it is the fair one
+- key-term: queue discipline
+
+### Week 8. Hold Music
+- does: treats what you are given during a wait as authored material with a genre, a history and an economics
+- key-term: the hold script
+
+### Week 9. Who Waits
+- does: asks how waiting is distributed, and treats the queue as an instrument rather than a side effect
+- key-term: the politics of waiting
+
+### Week 10. Benevolent Deception
+- does: inverts the course's assumption by presenting delay deliberately added, not removed
+- key-term: artificial latency
+
+### Week 11. The Remembered Wait
+- does: shows that the wait you report is not the wait you had, and that the last minute decides the whole thing
+- key-term: duration neglect
+
+### Week 12. Designing a Wait
+- does: the studio week where the cohort defends interventions against the thesis rather than against a rubric
+- key-term: the wait brief
 
 ## Assessment
 

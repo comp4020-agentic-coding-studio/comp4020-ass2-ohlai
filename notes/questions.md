@@ -16,7 +16,7 @@ Raised 2026-09-20. Answered 2026-09-20: week 1 opens Monday 15 February 2027,
 weekly, with a two week break after week 6 that does not count toward the
 twelve. Teaching resumes with week 7 on 12 April.
 
-## 2. The week list
+## 2. ~~The week list~~ ANSWERED
 
 `COURSE.md` needs twelve week titles, each with a one-line `does:` and a
 `key-term:`. None were supplied. The message said the list would be pasted and
@@ -27,7 +27,9 @@ the thesis clause or clauses the week serves (`serves:`), and the week's
 readings (`readings:`), since distinctness fails any two weeks sharing more
 than one reading.
 
-Raised 2026-09-20.
+Raised 2026-09-20. Answered 2026-09-20: twelve weeks supplied with titles,
+`does:`, `key-term:`, `serves:` and readings. The readings are recalled rather
+than retrieved, so each one is verified before it ships. See question 7.
 
 ## 3. Assessment items
 

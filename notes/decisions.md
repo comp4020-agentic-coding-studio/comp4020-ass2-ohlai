@@ -201,3 +201,17 @@ there is no cap, and both are logged as question 6 rather than absorbed
 silently. Checked by importing the module and printing the parsed object:
 the schema accepted it, the description measured 257 characters, and the code
 and level agreed at 2.
+
+## 84a2708 docs: the teaching calendar
+
+Twelve Mondays with a two week break after week 6. The decision was to write
+down why the weeks fall where they do, not just where they fall. The obvious
+version is twelve dates, which is all the calendar check reads. I added the
+two holiday sentences because Good Friday lands on 26 March 2027 and Anzac Day
+is observed on Monday 26 April, and both of those are inside the teaching
+period and both miss the Tuesday and Thursday teaching days. Without the note,
+the first person to notice a public holiday inside the semester writes an
+exception onto a week page, and then the site has an exception that is not
+true. Checked the two dates against the calendar for 2027, confirmed the
+strictly increasing check passes on the twelve, and confirmed the break shows
+as a fourteen day gap between week 6 and week 7 rather than as a missing week.
