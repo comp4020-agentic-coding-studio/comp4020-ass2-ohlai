@@ -136,3 +136,16 @@ prose it declares where it came from like anything else. Checked by adding
 lecture body: both figures were flagged, declaring them cleared them, a
 "lab task" measures field was rejected as too thin, and a 2027 retrieval date
 was rejected as in the future.
+
+## 938b87c test: a linked deck that is a stub is a broken promise
+
+The deck check. The obvious alternative was to stop where the build stops,
+confirming the linked deck compiles and its route exists, which is what
+`assignment-2.test.ts` already does and what the brief literally asks for. I
+added floors of 8 slides and 200 words because a four slide deck of template
+text satisfies every existing check and is worse than shipping no deck: the
+link on the lecture page promised a lecture. The floors are the smallest thing
+that can honestly be called a lecture's slides, and they are a floor and not a
+target, which the header comment says so nobody writes to them. Checked
+against the template's own deck, which the check called correctly: 4 slides,
+182 words, STARTER_CONTENT marker still in the file.
