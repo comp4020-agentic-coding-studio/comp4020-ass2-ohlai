@@ -406,7 +406,7 @@ would have laundered my invention into the source of truth. I deleted the
 section instead. The page now says the late policy is not set and logs it as
 question 8, which is worse for a student reading it today and correct.
 
-## 0e3a4a1 test: the voice check had never looked at the home page
+## 08e1db1 test: the voice check had never looked at the home page
 
 Found while cleaning up template leftovers, not by a check. `contentSources`
 matched `.md` and `.mdx`, and the home page is `.astro`, so the register
@@ -415,3 +415,14 @@ to edit the home page's em dash and move on, since I had it open. Widening
 the scan instead turned up a second hit in a page template I would not have
 opened at all. Checked by running the voice check before the fix, which found
 two files it had never read, and after, which found none.
+
+## 46bd7b8 feat: clear the template out of the pages a reader lands on
+
+The last of the placeholder prose, on the four pages a stranger actually
+opens. The obvious alternative was to leave the home page alone, because no
+check touched it and the brief never mentioned it. I rewrote it because the
+home page was still telling me to say what a student spends their time on,
+which means the most read page on the site was instructions to myself. The
+"Who it is for" section now rules people out in a sentence, including the
+people who want a performance optimisation course, which is the wrong reason
+to enrol in this one.
