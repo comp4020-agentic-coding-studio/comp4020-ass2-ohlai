@@ -11,21 +11,22 @@ below are the parse contract, so keep them exactly as they are.
 
 ## Thesis
 
-> waiting is not a failure of a system, it is a designed component of it, and the design is almost always about managing the person rather than the delay
+> Waiting is not a failure of a system, it is a designed component of it; the design is almost always about managing the person rather than the delay; and who is made to wait, for how long, and what they are told while waiting, is never neutral.
 
 That line is verbatim and does not get rewritten, trimmed or paraphrased
 anywhere on the site.
 
 ## Thesis clauses
 
-The thesis splits at its commas. Each clause carries an id, and every week
+The thesis splits at its semicolons. Each clause carries an id, and every week
 declares which clause or clauses it serves. The clauses must rejoin into the
 thesis above character for character, which `spec/coherence.test.ts` checks, so
-editing a clause here without editing the thesis is a build failure.
+editing a clause here without editing the thesis is a build failure. Every
+clause is served by at least two weeks, never one.
 
-- `T1` waiting is not a failure of a system
-- `T2` it is a designed component of it
-- `T3` the design is almost always about managing the person rather than the delay
+- `T1` Waiting is not a failure of a system, it is a designed component of it
+- `T2` the design is almost always about managing the person rather than the delay
+- `T3` and who is made to wait, for how long, and what they are told while waiting, is never neutral
 
 ## Teaching calendar
 

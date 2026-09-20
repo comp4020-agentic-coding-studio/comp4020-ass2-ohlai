@@ -149,3 +149,15 @@ that can honestly be called a lecture's slides, and they are a floor and not a
 target, which the header comment says so nobody writes to them. Checked
 against the template's own deck, which the check called correctly: 4 slides,
 182 words, STARTER_CONTENT marker still in the file.
+
+## 844418d docs: draw the sensor line around the seven course design checks
+
+Extended `spec/README.md` rather than leaving it describing a spec directory
+that had grown six files since it was written. The obvious alternative was to
+leave it alone, since it is the template's file and its existing text is still
+accurate. I added to it because it is the file that claims to draw the line
+between a contract test and a sensor, and a file making that claim while not
+classifying seven of the nine tests in the directory is worse than one that
+never made the claim. Checked by reading it against the actual directory
+listing, and by confirming the two overlaps with `assignment-2.test.ts` are
+described as the deliberate pairs they are rather than as duplication.

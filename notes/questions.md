@@ -36,7 +36,7 @@ not the course's assessment.
 
 Raised 2026-09-20.
 
-## 4. The thesis clause split, for confirmation
+## 4. ~~The thesis clause split, for confirmation~~ ANSWERED
 
 The thesis was supplied verbatim. The clause ids the coherence check needs were
 not, so the split was taken at the thesis's own commas:
@@ -51,7 +51,9 @@ line it came from. Confirm the granularity is what you want. `T1` and `T2` are
 one move stated twice, and if you would rather they were a single clause, say
 so, because it changes what coherence demands of a week.
 
-Raised 2026-09-20.
+Raised 2026-09-20. Answered 2026-09-20: the thesis gained a third clause and
+now splits at its semicolons, not its commas. Every clause is served by at
+least two weeks.
 
 ## 5. The course code, for confirmation
 

@@ -15,7 +15,7 @@ behind it.
 SLOP2034 "Wait: The Design of Delay" is a twelve week course on the design of
 waiting. Its thesis, and the whole of what it argues, is one line:
 
-> waiting is not a failure of a system, it is a designed component of it, and the design is almost always about managing the person rather than the delay
+> Waiting is not a failure of a system, it is a designed component of it; the design is almost always about managing the person rather than the delay; and who is made to wait, for how long, and what they are told while waiting, is never neutral.
 
 Every week takes one part of that line and does something to it that no other
 week does. `COURSE.md` is where the thesis, the twelve weeks, the assessment,

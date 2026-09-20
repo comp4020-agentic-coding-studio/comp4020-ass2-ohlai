@@ -20,6 +20,9 @@ describe("the thesis and its clauses", () => {
   });
 
   it("splits into clauses that rejoin into the thesis word for word", () => {
+    // The joiners are the thesis's own punctuation, semicolons in this
+    // case. Widening the set is not loosening the assertion: the clauses
+    // still have to reconstruct the line with nothing added or dropped.
     // The clause ids are only trustworthy if they cannot drift from the line
     // they were split out of. Editing a clause without editing the thesis is
     // how a course quietly starts arguing something slightly different.
@@ -29,11 +32,13 @@ describe("the thesis and its clauses", () => {
       const at = bible.thesis.indexOf(clause.text, cursor);
       expect(at, `clause ${clause.id} does not appear in the thesis, in order`).toBeGreaterThanOrEqual(0);
       const gap = bible.thesis.slice(cursor, at);
-      const expected = index === 0 ? /^$/ : /^,\s+(and\s+)?$/;
-      expect(gap, `text between clause ${index} and ${clause.id} is not a comma joiner`).toMatch(expected);
+      const expected = index === 0 ? /^$/ : /^[;,]\s+(and\s+)?$/;
+      expect(gap, `text between clause ${index} and ${clause.id} is not a clause joiner`).toMatch(expected);
       cursor = at + clause.text.length;
     }
-    expect(bible.thesis.slice(cursor), "the thesis has text after its last clause").toBe("");
+    // A clause carries no sentence-final punctuation, so the thesis may
+    // end in a full stop the clauses do not. Nothing else may be left.
+    expect(bible.thesis.slice(cursor), "the thesis has text after its last clause").toMatch(/^\.?$/);
   });
 
   it("gives every clause a unique id", () => {
