@@ -135,13 +135,21 @@
 
 /* A section divider drawn as a queue: a row of ticks and then the one at the
    head of it. Used instead of the theme's plain <hr>. */
+/* The rule owns the whole gap. Its neighbours zero their adjacent margin,
+   because a flex element next to a bordered section does not collapse
+   margins with it, and the two stacked up to 169px of blank page. */
 .queue-rule {
   display: flex;
   align-items: center;
   gap: 0.4rem;
-  margin-block: 3rem;
+  margin-block: 2.75rem;
   border: 0;
   padding: 0;
+}
+
+.queue-rule + h2,
+.queue-rule + * > h2:first-child {
+  margin-block-start: 0;
 }
 
 .queue-rule::before {
@@ -167,7 +175,7 @@
 /* ---------------------------------------------------------------- thesis */
 
 .thesis {
-  margin-block: 2.5rem 3rem;
+  margin-block: 2.5rem 0;
   border-block-start: 2px solid var(--at-primary);
   padding-block-start: 1.75rem;
 }
