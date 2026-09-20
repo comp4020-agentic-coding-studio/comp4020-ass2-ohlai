@@ -411,12 +411,18 @@ a.at-card:focus-within::before {
    and all, and the percentages resolve against the same width because the
    band is exactly as wide as <body>.
 
-   The inner blocks run content-start to full-end rather than sitting in a
-   centred box of their own. Centring them looked wrong for a reason that
-   only measuring showed: the theme's content column is not centred either,
-   it is pushed right by --at-content-inset, so a centred header started its
-   title 225px to the left of every heading beneath it. Left edges now agree
-   and the band keeps its width on the right, where the artwork wants it.
+   The inner blocks span `full` and are then centred in a box a little wider
+   than the content column: 54rem against the page's 46rem. The band reads as
+   its own thing rather than as a wide stripe behind a narrow page, and the
+   extra width is where the bar and the title need it.
+
+   Getting here took three tries, all of which looked plausible. A box
+   centred on nothing in particular started its title 225px left of the
+   headings beneath it. Running content-start to full-end fixed the left edge
+   and broke the right, leaving a 316px margin on one side and a gutter on
+   the other. Sitting in `content` lined up exactly but made the header no
+   wider than the prose. Equal margins, slightly wider, is the one that
+   reads as deliberate.
 
    position/z-index put the band above body::after, the 1px accent rule the
    theme runs the full height of the page at inset-start. That rule marks the
@@ -433,8 +439,15 @@ a.at-card:focus-within::before {
 }
 
 .course-head > * {
-  grid-column: content-start / full-end;
-  padding-inline-end: var(--at-gutter, 1.5rem);
+  /* justify-self, not `margin-inline: auto`: these children are flex and
+     grid containers with a max-inline-size, and auto margins left them sitting
+     at the start of the track rather than centred in it. */
+  justify-self: center;
+  inline-size: 100%;
+  grid-column: full;
+  /* 54rem against the page's 46rem --at-content-width. */
+  max-inline-size: 54rem;
+  padding-inline: var(--at-gutter, 1.5rem);
 }
 
 .course-head-strip {
@@ -574,6 +587,7 @@ a.at-card:focus-within::before {
     grid-column: full;
     padding-inline: var(--at-gutter, 1.5rem);
   }
+
 
   .course-head-body {
     grid-template-columns: 1fr;
@@ -726,5 +740,38 @@ a.at-card:focus-within::before {
 @media (prefers-reduced-motion: reduce) {
   .lie-dot {
     animation: none;
+  }
+}
+
+/* The panel's own heading: what the bar claims to be doing overall, above
+   the step it claims to be doing right now. */
+.lie-title {
+  margin: 0;
+  color: color-mix(in oklab, white 94%, var(--at-primary));
+  font-size: var(--at-font-size-sm);
+  font-weight: 600;
+  letter-spacing: -0.01em;
+}
+
+.lie > figcaption a {
+  color: var(--at-link);
+}
+
+/* On a phone the whole header stacks, and the bar's panel is the part that
+   grows: a 2.6rem readout and generous padding push the course's first
+   sentence most of a screen further down. The panel still does its job at
+   two thirds the size. */
+@media (width < 34rem) {
+  .lie-panel {
+    gap: 0.6rem;
+    padding: 0.9rem 1rem 1rem;
+  }
+
+  .lie-pct {
+    font-size: 1.85rem;
+  }
+
+  .lie-unit {
+    font-size: 0.9rem;
   }
 }

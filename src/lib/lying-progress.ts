@@ -14,7 +14,30 @@
  * is not a measurement. It climbs at a speed that changes for no reason,
  * stalls for no reason, reaches a ceiling, sits on it, and then drops to
  * somewhere lower and starts again.
+ *
+ * The narration is week 5's. Each stall moves the status to the next step in
+ * STEPS, which reads as a system telling you what it is busy with. It is not
+ * busy with anything. Showing work is the substitute for doing it faster,
+ * and a named step is what makes an unmoving bar bearable.
  */
+
+/**
+ * What the bar claims to be doing, in order.
+ *
+ * They are the steps a marking system would plausibly have, which is the
+ * point: plausibility is the whole mechanism. Nothing here happens.
+ */
+export const STEPS: readonly string[] = [
+  "Checking your submission",
+  "Consulting the moderation panel",
+  "Comparing against the cohort",
+  "Waiting on the second marker",
+  "Applying the late policy",
+  "Finalising",
+];
+
+/** Shown immediately after a fall, when the claim has to start over. */
+export const AFTER_FALL = "Recalculating";
 
 export type Phase = "climb" | "stall" | "hold";
 
@@ -51,7 +74,8 @@ export class LyingProgress {
   #hold: number;
   /** -1 is the opening climb, which has not fallen yet. */
   #fallsTaken = -1;
-  #label = "Transferring";
+  #step = 0;
+  #label = STEPS[0]!;
 
   constructor(options: LyingProgressOptions = {}) {
     this.#random = options.random ?? Math.random;
@@ -88,11 +112,14 @@ export class LyingProgress {
   advance(dt: number): void {
     if (this.#phase === "climb") {
       this.#value = Math.min(this.#value + this.#speed * dt, this.#ceiling);
-      this.#label = this.#value > 95 ? "Almost done" : "Transferring";
       if (this.#value >= this.#ceiling) {
         this.#phase = "hold";
         this.#timer = this.#hold;
-        this.#label = this.#ceiling > 95 ? "Finalising" : "Almost done";
+        // The last step is the one it sits on, whatever the number says.
+        // A bar holding at 55% under "Finalising" is the claim and the
+        // measurement disagreeing in public, which is week 4's subject.
+        this.#step = STEPS.length - 1;
+        this.#label = STEPS[this.#step]!;
       } else if (this.#random() < STALL_RATE * dt) {
         this.#phase = "stall";
         this.#timer = this.#between(...STALL);
@@ -108,6 +135,12 @@ export class LyingProgress {
       // A new speed after every stall, which is what makes the climb read as
       // uneven rather than as one slow line.
       this.#speed = this.#between(8, 46);
+      // And a new claim about what it is busy with, which is what makes a
+      // stall bearable. Stops at the last step rather than cycling, because
+      // a system that announces "Checking your submission" for the third
+      // time has admitted it is not doing anything.
+      this.#step = Math.min(this.#step + 1, STEPS.length - 1);
+      this.#label = STEPS[this.#step]!;
       return;
     }
 
@@ -130,6 +163,7 @@ export class LyingProgress {
     }
     this.#phase = "climb";
     this.#speed = this.#between(20, 60);
-    this.#label = "Recalculating";
+    this.#step = 0;
+    this.#label = AFTER_FALL;
   }
 }

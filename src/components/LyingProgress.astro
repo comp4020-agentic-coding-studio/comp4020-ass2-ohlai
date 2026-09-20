@@ -1,5 +1,12 @@
 ---
-// A progress bar that behaves like the ones week 4 is about.
+// A progress bar pretending to release your mark.
+//
+// A bar labelled "Transferring" on a course homepage is a bar for its own
+// sake, which is decoration. This one is loading something the course has
+// already told you it will not give you: the policies page says marks are
+// released in week 12 and not before, and this is the interface that would
+// imply otherwise. It never finishes, because the policy it is bumping
+// against is real.
 //
 // It climbs unevenly, stalls, reaches 99%, sits there long enough for you to
 // believe it, and then falls back to somewhere lower and starts again. The
@@ -20,19 +27,16 @@
 // it is the same meaning: the bar is lying. Under prefers-reduced-motion the
 // script never starts, and what is left is a static bar at 99%, which is the
 // joke holding still.
-interface Props {
-  /** Rendered into the figcaption under the bar. */
-  caption: string;
-}
-
-const { caption } = Astro.props;
+// The caption is a slot rather than a prop so it can carry a link.
 ---
 
 <figure class="lie">
   <div class="lie-panel" aria-hidden="true">
+    <p class="lie-title">Releasing your mark</p>
+
     <p class="lie-label">
       <span class="lie-dot"></span>
-      <span data-lie-label>Transferring</span>
+      <span data-lie-label>Checking your submission</span>
     </p>
 
     <div class="lie-track">
@@ -44,7 +48,7 @@ const { caption } = Astro.props;
     </p>
   </div>
 
-  <figcaption>{caption}</figcaption>
+  <figcaption><slot /></figcaption>
 </figure>
 
 <script>

@@ -684,3 +684,39 @@ What carries the idea now: the header's bar, which lies continuously and
 costs nobody anything; the assessment weights and week positions, which use
 the same vocabulary where it actually informs; and the 404's throbber, on the
 one page where nothing is ever going to arrive.
+
+## 283d384 and what the bar is loading
+
+Two notes, one about content and one about a layout mistake made three
+times.
+
+The bar was loading nothing in particular, which made it decoration with a
+justification attached: a progress bar on a course homepage illustrating the
+idea of progress bars. It now pretends to release your mark. The policies
+page already says marks come out in week 12 and not before, so the bar is an
+interface for a thing the course has explicitly refused to give you, and it
+never finishes because the policy it is bumping against is real. The status
+line narrates plausible marking steps, which is week 5 rather than week 4:
+showing work is the substitute for doing it faster, and a named step is what
+makes a stalled bar bearable. Nothing is happening behind any of them.
+
+The label deliberately outruns the number. A bar sitting at 55% under
+"Finalising" is the claim and the measurement disagreeing in public, and that
+is the subject rather than a bug.
+
+The layout. Getting the header's width right took three wrong answers, every
+one of which looked fine in isolation and only resolved by measuring left and
+right margins against the viewport. Centred on nothing in particular put the
+title 225px left of the headings under it, because --at-content-inset pushes
+the theme's content column right and a naive centre does not know that.
+Running content-start to full-end fixed the left edge and left a 316px margin
+on one side against a gutter on the other. Sitting in `content` lined up
+perfectly and made the header no wider than the prose, which lost the point
+of having a band at all. The answer was a centred box slightly wider than the
+content column, 54rem against 46rem, which needed `justify-self: center`
+rather than `margin-inline: auto`: these children are flex and grid
+containers, and auto margins left them at the start of the track.
+
+Three plausible-looking wrong answers is the argument for measuring
+getBoundingClientRect rather than trusting a screenshot, which in this run
+was not available anyway.
