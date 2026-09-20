@@ -546,3 +546,28 @@ from, and demanding provenance would have meant inventing a citation for a
 decision. Everywhere else in the bible a figure is still a claim that owes
 all three fields. Checked by putting an undeclared "200ms" into the Weeks
 section and confirming it still fails.
+
+## d284735 test: a thesis a reader cannot find is not a thesis
+
+Two sensors and one real bug they found between them.
+
+Writing the thesis check was straightforward. Proving it works was the part
+worth doing: deleted `<Thesis />` from the home page, rebuilt, confirmed the
+first two assertions fail and the third still passes, restored. A check
+nobody has watched fail is a check that might be reading the wrong file.
+
+Widening `contentSources()` to `src/components` was the second, and it is
+the same lesson as the earlier widening to `src/pages`. Reader-facing copy
+had quietly moved into a directory nothing scanned, which is how the home
+page's prose went unscanned for twenty commits. It found a genuine em dash in
+`TeachingTeam.astro` rendering "Marisol Quaye — convenor" under every session
+and lecture page, in a component I had not touched.
+
+It also produced two false positives, a `--bar-value: 99%` in a style
+attribute and a `1500ms` in a script comment. The tempting response was to
+drop components from the scan again. Instead `contentSources()` learned to
+blank `<script>`, `<style>` and `style` attributes out of `.astro` files,
+while keeping `alt`, `title` and `aria-label`, which are copy a reader meets
+and exactly the kind nobody proofreads. A rule that cries wolf on CSS is a
+rule that gets switched off, so the scanner had to get smarter rather than
+narrower.
