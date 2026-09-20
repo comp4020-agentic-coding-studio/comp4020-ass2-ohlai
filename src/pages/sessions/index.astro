@@ -6,13 +6,24 @@ import { sessionLabels, siteConfig } from "../../site-config";
 
 <ContentLayout
   title={sessionLabels.plural}
-  description={`The twelve-week teaching schedule: what happens in each ${sessionLabels.singular.toLowerCase()}, what to prepare, and what leaves the room.`}
+  description="Twelve weeks on the design of delay, from the gap between clock time and felt time to the question of who is asked to wait."
   {...siteConfig}
 >
   <p>
-    The internal collection and URL stay <code>sessions</code>. Set the visible
-    singular and plural names once in <code>src/site-config.ts</code> and use
-    the language your course deserves everywhere readers see it.
+    Every system you use has decided how long you will wait and what you will
+    be told while you do. This course treats that decision as design work: the
+    thresholds, the progress indicators, the hold scripts, the queues, and the
+    politics of who is asked to wait. You will log your own waits, take one
+    apart, and redesign a wait you are not permitted to shorten.
+  </p>
+  <p>
+    The lecture is Tuesday and the workshop is Thursday, every week. Weeks 1 to
+    6 build the techniques and weeks 7 to 12 ask who they are pointed at.
+  </p>
+  <p>
+    Teaching stops for a fortnight after week 6 and resumes on 12 April. A
+    course about waiting has a two week gap in the middle of it, and that is
+    the only time this page will mention it.
   </p>
   <SessionsGrid />
 </ContentLayout>

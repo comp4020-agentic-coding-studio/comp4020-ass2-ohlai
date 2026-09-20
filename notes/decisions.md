@@ -367,3 +367,28 @@ justification would test the first two clauses and quietly drop the third.
 Checked by running the assessment test, which confirms the four weights total
 100, all four due dates resolve to teaching weeks, and each page agrees with
 COURSE.md on weight, date and clause.
+
+## 6b3a1a5 feat: the week 1 deck
+
+Ten slides, and the useful thing that happened was catching myself. The deck
+I first wrote closed on a slide observing that a course about waiting has a
+two week gap in the middle, which is the one joke the course is allowed to
+make once, on the outline page. I had been told that an hour earlier and
+broke it anyway, in different words, on a page nobody would have thought to
+check. Replaced the slide, then wrote spec/one-joke.test.ts so the next
+version of me cannot. Checked by re-adding the offending line and confirming
+the new check named the deck and the line number.
+
+## 2253ec0 test: the joke about the break is made once, on the outline page
+
+The interesting decision was the allowlist. My first version banned the break
+from every page except the outline, and it immediately failed on two
+legitimate mentions: COURSE.md, which is the calendar and has to say where
+the gap is, and the Teardown, which is due the day before it opens and says
+so deliberately. The obvious fix was to narrow the pattern until those two
+stopped matching, by requiring a word like "waiting" nearby. I tried it and
+it stopped catching the deck slide that caused the whole thing, because that
+slide never used the word. So I kept the broad pattern and named the three
+files that may mention the break, with a comment saying what each one earns
+its place with. A short allowlist you can read beats a clever regex you
+cannot. Checked by re-adding the deck slide and confirming it failed.

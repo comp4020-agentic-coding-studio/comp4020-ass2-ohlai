@@ -11,11 +11,9 @@ photo: ./marisol-quaye.avif
 photoAlt: A stylised portrait of a person in three-quarter view, flat gold and black shapes on warm cream, in a two-ink risograph print
 ---
 
-<!-- STARTER_CONTENT: replace this person entry, then remove this comment. -->
+Convener of SLOP2034. The course record, the marks policy and any exception
+to it come through this office.
 
-Replace this entry. A people page carries a short bio and whatever a student
-needs in order to contact the right person for the right thing --- and nothing
-that will be stale by week 3.
-
-Consultation hours, contact preferences and the escalation path (who to ask
-first, who to ask when that does not work) are the parts students actually read.
+Consultation hours and the escalation path are not set for 2027 and are not
+stated here. Ask in the Thursday workshop first, because most questions are
+shared ones.

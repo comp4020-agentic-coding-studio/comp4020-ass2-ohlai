@@ -86,3 +86,42 @@ most general of the four and the one closest to `delay`, which is already
 there. The other three are `delay`, `interaction-design` and `service-design`.
 
 Raised 2026-09-20.
+
+## 7. The Houston baggage claim case does not verify
+
+Week 6 asked for "the Houston airport baggage-claim case" as a reading. It
+does not verify. The story traces to a 2012 retelling and no airport or
+airline has ever confirmed the two claims it turns on, the six times longer
+walk and complaints falling to zero. Neither of the outlets that tried to
+source it found an original.
+
+Following the rule, the slot is empty and no substitute was found for it.
+Week 6 now runs on Norman alone as a reading. The case itself is named in the
+week 6 body, as an example of a field's favourite evidence turning out to be
+a parable, which is true and is worth teaching. Say if you would rather it
+were cut from the page entirely.
+
+Raised 2026-09-20.
+
+## 8. Late work and extensions are not set
+
+The policies page states the marks release policy, which was given. It has no
+late penalty, no extension process and no evidence requirement, because none
+were supplied and an assessment rule is not something to invent. The page
+says so in place of stating one.
+
+Needed: the per-day penalty and its floor, whether extensions need
+documentation and from when, and who grants them.
+
+Raised 2026-09-20.
+
+## 9. The teaching team is still the template's
+
+`src/content/people/` holds two people who arrived with the template. The
+convener entry has been rewritten to say only what is true of the course, and
+the second entry has not been touched. Real names, roles, contact details and
+consultation hours cannot be invented.
+
+Needed: who teaches this course, and what each of them does.
+
+Raised 2026-09-20.
