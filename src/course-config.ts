@@ -54,7 +54,7 @@ export const slopCourseMetaSchema = z
 // notes/questions.md, question 6.
 export const courseMeta = slopCourseMetaSchema.parse({
   code: "SLOP2034",
-  title: "Your Call Is Important To Us",
+  title: "Wait: The Design of Delay",
   session: "Semester 1",
   year: 2027,
   level: 2,

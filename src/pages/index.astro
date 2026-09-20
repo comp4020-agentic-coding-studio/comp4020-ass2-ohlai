@@ -9,12 +9,16 @@ import { sessionLabels, siteConfig } from "../site-config";
 ---
 
 <ContentLayout
-  title={`${courseMeta.code}: ${courseMeta.title}`}
+  title={courseMeta.title}
   description={courseMeta.description}
   heroImage={heroImage}
   heroImageAlt="A lecture theatre reduced to flat gold and black shapes, rows of seats sweeping past the frame, in a two-ink risograph print"
   {...siteConfig}
 >
+  <p class="course-code">
+    {courseMeta.code}. {courseMeta.session}, {courseMeta.year}.
+  </p>
+
   <ul class="course-tags" aria-label="Course tags">
     {courseMeta.tags.map((tag) => <li>{tag}</li>)}
   </ul>
@@ -60,6 +64,12 @@ import { sessionLabels, siteConfig } from "../site-config";
 </ContentLayout>
 
 <style>
+  .course-code {
+    margin-block: 0 1.5rem;
+    color: var(--at-text-secondary);
+    font-variant-numeric: tabular-nums;
+  }
+
   .course-tags {
     display: flex;
     flex-wrap: wrap;
