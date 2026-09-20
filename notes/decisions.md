@@ -341,3 +341,15 @@ running gag survives only because the course never explains it. Checked by
 reading the week 8 page for any sentence that gestures at the block, and by
 confirming the but-wait check still treats week 8's block as an artefact
 unrelated to its body.
+
+## 5bde327 feat: weeks 10 to 12, the inversion and the studio
+
+The end of the twelve, and the decision was where to put the marks policy.
+The obvious place is the policies page alone, which is where a policy lives
+and where nobody reads it. I put the reference in week 11, the week on
+duration neglect and the peak-end rule, so a student meets the course
+withholding their marks on the same page that explains why the end of an
+experience is worth more than its middle. That makes the policy arguable
+rather than merely announced, which is the only defensible reason to have it.
+Checked by reading week 11 and week 12 together to confirm the policy is
+stated once as fact and once as a pointer, and never as a joke.
