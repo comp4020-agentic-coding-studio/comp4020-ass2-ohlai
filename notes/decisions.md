@@ -116,3 +116,23 @@ returns to in week 2 and again in week 11 is the spine of an argument, and
 banning it would push the author into citing a different edition to get green.
 Checked with two fixture weeks differing only in capitalisation and a full
 stop: both the does: and key-term: checks failed and named the pair.
+
+## 0624a77 test: a number without provenance is a rumour
+
+The provenance check. Two decisions. The first was where to read from: the
+generated API drops page bodies and never sees decks, so I wrote a narrow
+frontmatter reader in `site-api.ts` rather than adding a YAML dependency or
+scoping the check to what the API happens to expose. The narrowness is
+deliberate, since a block scalar the reader does not understand comes back as
+an empty field and fails the check instead of passing quietly. The second was
+the five word floor on "what it measures". The obvious alternative was to
+require the field to be non-empty, like the other two. I went further because
+source and date are the two fields a fabricated statistic can fill
+convincingly, and the population, the method and the unit are what was never
+there, so a one word answer is the tell. Course facts get no exemption: a
+weight renders from frontmatter and has no business in prose, and if it is in
+prose it declares where it came from like anything else. Checked by adding
+"a 400 ms response reads as instant, and 38% of people leave before it" to a
+lecture body: both figures were flagged, declaring them cleared them, a
+"lab task" measures field was rejected as too thin, and a 2027 retrieval date
+was rejected as in the future.
