@@ -82,6 +82,7 @@ Each file protects one course design decision and its header comment names it.
 | `calendar` | Twelve weeks, in order, once each. |
 | `provenance` | A number without provenance is a rumour. |
 | `deck` | A linked deck that is a stub is a broken promise to a marker. |
+| `but-wait` | A recurring block that repeats itself is a broken promise. |
 
 `spec/course-md.ts` is the parser they share. It is the only thing that reads
 `COURSE.md`'s syntax, so the format is changed in one place.

@@ -227,3 +227,15 @@ the first step toward making them say the same thing, which is the failure
 distinctness exists to catch. Checked by running distinctness: all twelve
 titles, does: lines and key-terms are unique under case and punctuation
 normalisation, so none of them are near-duplicates of each other.
+
+## 56126a3 docs: the assessment
+
+Four items to 100, each naming a thesis clause. The decision worth recording
+is the Teardown's date. It falls on the Thursday of week 6, the day before a
+two week break opens, and the obvious move is to push it to the Monday after
+the break, which is kinder and is what most courses do. It stays where it is
+because a course arguing that waiting is designed cannot hand back a fortnight
+of slack by accident, and the assessment page says it is deliberate rather
+than leaving a student to assume an oversight. Checked by running the
+assessment test: weights total exactly 100, and all four due dates resolve to
+teaching weeks 3, 6, 10 and 12 under the seven day window rule.
