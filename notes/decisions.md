@@ -215,3 +215,15 @@ exception onto a week page, and then the site has an exception that is not
 true. Checked the two dates against the calendar for 2027, confirmed the
 strictly increasing check passes on the twelve, and confirmed the break shows
 as a fourteen day gap between week 6 and week 7 rather than as a missing week.
+
+## a62956a docs: the twelve weeks
+
+Wrote the twelve weeks into COURSE.md exactly as supplied, with no rewording
+of the does: lines. The obvious alternative was to tidy them into a parallel
+grammar, since half start with a verb like "establishes" and half describe a
+move like "the studio week where". I left them alone because a does: line is a
+claim about what a week is for, and making twelve of them scan the same way is
+the first step toward making them say the same thing, which is the failure
+distinctness exists to catch. Checked by running distinctness: all twelve
+titles, does: lines and key-terms are unique under case and punctuation
+normalisation, so none of them are near-duplicates of each other.

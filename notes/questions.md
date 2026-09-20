@@ -31,14 +31,15 @@ Raised 2026-09-20. Answered 2026-09-20: twelve weeks supplied with titles,
 `does:`, `key-term:`, `serves:` and readings. The readings are recalled rather
 than retrieved, so each one is verified before it ships. See question 7.
 
-## 3. Assessment items
+## 3. ~~Assessment items~~ ANSWERED
 
 `COURSE.md` needs the assessment items with weights totalling 100, a due date
 for each, and the thesis clause each one tests. None were supplied. The two
 starter items in `src/content/assessments/` are template placeholders and are
 not the course's assessment.
 
-Raised 2026-09-20.
+Raised 2026-09-20. Answered 2026-09-20: Wait Log 15, Teardown 25, Intervention
+45, Studio Presentation 15.
 
 ## 4. ~~The thesis clause split, for confirmation~~ ANSWERED
 

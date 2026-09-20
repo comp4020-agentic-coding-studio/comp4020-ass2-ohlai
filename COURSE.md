@@ -120,7 +120,37 @@ One `### Item name` heading per item, with `weight:`, `due:` and `tests:`.
 Weights total exactly 100. Every due date falls inside a teaching week. Every
 item names the thesis clause it tests. `spec/assessment.test.ts` holds this.
 
-<!-- BLOCKED: no assessment items supplied. See notes/questions.md, question 3. -->
+### Wait Log
+- weight: 15
+- due: 2027-03-05
+- tests: T1
+
+One week of your own waits over ten seconds. For each, record clock duration, felt duration, and what you were told while it happened. Submit the data plus 500 words on where the three disagreed.
+
+### Teardown
+- weight: 25
+- due: 2027-03-25
+- tests: T2
+
+Take one shipped wait apart. What is measured, what is shown, what is claimed, and which of the three is load-bearing.
+
+### Intervention
+- weight: 45
+- due: 2027-05-07
+- tests: T3
+
+Redesign a wait you are not allowed to make shorter. Submit before and after, plus a justification naming the technique from weeks 5 to 8 you used and the person it acts on.
+
+### Studio Presentation
+- weight: 15
+- due: 2027-05-20
+- tests: T1, T2, T3
+
+Present the intervention and defend the choice of who it manages. In class, week 12.
+
+The Teardown falls on the Thursday of week 6, the day before the break opens.
+That is deliberate and the assessment page says so in one line. A course about
+waiting does not hand back a fortnight of slack by accident.
 
 ## Voice
 
