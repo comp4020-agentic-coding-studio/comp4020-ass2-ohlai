@@ -1,23 +1,17 @@
 ---
-title: Second lecture
-description:
-  Week 2 — the first substantive material, and the run-up to the first review
+title: Where the thresholds came from
+description: >-
+  Why interface guidance has three numbers in it, who measured them, and
+  what they were measuring at the time.
 week: 2
-date: 2027-03-01
-teachers:
-  - idris-fenn
-related:
-  - sessions/02-first-review
-  - assessments/assignment-1
+date: 2027-02-23
 ---
 
-<!-- STARTER_CONTENT: replace this lecture, then remove this comment. -->
+The thresholds that decide whether a delay gets no feedback, a spinner or a
+progress bar were not derived from a theory of attention. They came out of
+terminal sessions in 1968 and a usability textbook in 1993, and they have been
+copied forward ever since.
 
-Replace this page. It exists so the lectures listing sorts by week and the
-related block has more than one edge to draw.
-
-## Outline
-
-- the first substantive material, and where it shows up in practice
-- what the first review is looking for
-- reading before next week
+This lecture traces the numbers back to what was in front of the people who
+measured them. That matters, because a threshold written for a mainframe
+terminal is still deciding what your software does when a request is slow.

@@ -1,30 +1,19 @@
 ---
-title: Opening lecture
-description:
-  The first lecture — what the course is, why it is shaped this way, and what
-  happens in week 1
+title: Two durations, one wait
+description: >-
+  The opening lecture, on the two numbers every wait has and why only one of
+  them is the course's subject.
 week: 1
-date: 2027-02-22
-teachers:
-  - marisol-quaye
+date: 2027-02-16
 slides: /decks/week-01/
-related:
-  - sessions/01-getting-started
 ---
 
-<!-- STARTER_CONTENT: replace this lecture, then remove this comment. -->
+Every wait has two durations. The clock gives one of them. The person doing
+the waiting gives the other, and the two are rarely the same number.
 
-Replace this page. A lecture entry says what was covered and links to the pages
-that own the detail, so the lecture stays short and nothing is explained twice.
+This lecture argues that the second number is the one systems are actually
+designed against, and that treating it as a measurement error is the mistake
+the rest of the course is about. Nothing here asks you to make anything
+faster.
 
-The `related:` ref above is a graph edge: it renders on this page and on the
-session's, so declare a connection once, on whichever side is convenient.
-
-The page renders its `slides:` link automatically. Decks are markdown too,
-under `src/decks/`; the path is part of the lecture's API metadata.
-
-## Outline
-
-- what the course is for
-- how the weeks are shaped
-- what to do before the first session
+[Slides](/decks/week-01/)
