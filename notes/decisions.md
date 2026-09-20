@@ -186,3 +186,18 @@ on week 9 alone reads as "T3 is served by week 9 alone" and points at the page
 that needs to change. Checked against the current empty course, where all three
 clauses correctly report "served by no weeks" rather than the wrong message for
 the zero case.
+
+## 518de3c feat: the course record
+
+Wrote the course record and hit two schema limits: a 300 character
+description against a 356 character paragraph, and three tags against four.
+The obvious move on both was to raise the limits, which is two characters of
+edit in a file I had open. I did not, because `slopCourseMetaSchema` is the
+contract a catalogue ingests rather than a preference of this course, and a
+course that widens the field to fit its own paragraph has stopped being
+catalogued and started being special. So the record carries the first two
+sentences and three tags, the third sentence goes on the outline page where
+there is no cap, and both are logged as question 6 rather than absorbed
+silently. Checked by importing the module and printing the parsed object:
+the schema accepted it, the description measured 257 characters, and the code
+and level agreed at 2.

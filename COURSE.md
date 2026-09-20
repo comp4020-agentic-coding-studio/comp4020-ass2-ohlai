@@ -33,7 +33,31 @@ clause is served by at least two weeks, never one.
 One line per teaching week, `week N: YYYY-MM-DD`, twelve of them, strictly
 increasing. `spec/calendar.test.ts` holds this.
 
-<!-- BLOCKED: no teaching dates supplied. See notes/questions.md, question 1. -->
+- week 1: 2027-02-15
+- week 2: 2027-02-22
+- week 3: 2027-03-01
+- week 4: 2027-03-08
+- week 5: 2027-03-15
+- week 6: 2027-03-22
+- week 7: 2027-04-12
+- week 8: 2027-04-19
+- week 9: 2027-04-26
+- week 10: 2027-05-03
+- week 11: 2027-05-10
+- week 12: 2027-05-17
+
+The date is the Monday the week opens. The lecture is Tuesday and the workshop
+is Thursday, every week, with no exceptions anywhere on the site.
+
+A two week break follows week 6, covering 29 March and 5 April. Teaching
+resumes with week 7 on 12 April.
+
+The teaching days are clear of both public holidays in the period and this is
+why the weeks fall where they do. Good Friday is 26 March 2027, the Friday of
+week 6, after that week's Thursday workshop. Anzac Day falls on a Sunday and is
+observed on Monday 26 April, which is the opening Monday of week 9 and not a
+teaching day. Nothing on the site needs a holiday exception, and nothing on the
+site should claim one.
 
 ## Weeks
 

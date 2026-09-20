@@ -4,7 +4,7 @@ Questions the harness hit that `COURSE.md` cannot answer. Nothing gets filled
 in on guesswork. Each question stays here until it is answered in `COURSE.md`,
 then it is struck through with the commit that answered it.
 
-## 1. Teaching dates
+## 1. ~~Teaching dates~~ ANSWERED
 
 `COURSE.md` needs twelve dated teaching weeks, and `src/course-config.ts` needs
 `startDate` and `endDate` to bracket them. Neither was supplied. Needed: the
@@ -12,7 +12,9 @@ date of week 1, and confirmation that the other eleven run weekly from it with
 no mid-semester break. If there is a break week, say which week it falls after
 and whether it counts toward the twelve.
 
-Raised 2026-09-20.
+Raised 2026-09-20. Answered 2026-09-20: week 1 opens Monday 15 February 2027,
+weekly, with a two week break after week 6 that does not count toward the
+twelve. Teaching resumes with week 7 on 12 April.
 
 ## 2. The week list
 
