@@ -55,12 +55,29 @@ Raised 2026-09-20. Answered 2026-09-20: the thesis gained a third clause and
 now splits at its semicolons, not its commas. Every clause is served by at
 least two weeks.
 
-## 5. The course code, for confirmation
+## 5. ~~The course code, for confirmation~~ ANSWERED
 
 The brief says `SLOP2xxx`. The repo was allocated `034` and only the level
 digit is yours, so the code is `SLOP2034` and `level` is `2`.
-`src/course-config.ts` still says `SLOP1034` and `level: 1`. It was left alone
-because changing it means also writing `title`, `startDate`, `endDate`,
-`description` and `tags`, and the dates are question 1.
+`src/course-config.ts` now says `SLOP2034` and `level: 2`, with the title,
+dates, description and tags supplied.
+
+Raised 2026-09-20. Answered 2026-09-20.
+
+## 6. Two things the course record schema would not take
+
+`slopCourseMetaSchema` in `src/course-config.ts` is part of the platform, not
+the course, so neither of these was worked around.
+
+The description caps at 300 characters and the course's paragraph is 356. The
+first two sentences are in the record, which is what a catalogue entry needs.
+The third, "You will log your own waits, take one apart, and redesign a wait
+you are not permitted to shorten", is on the outline page in full, so nothing
+is lost, but the catalogue will not carry it. Say if you would rather cut
+elsewhere.
+
+The tag list caps at three and four were given. `time` was dropped, as the
+most general of the four and the one closest to `delay`, which is already
+there. The other three are `delay`, `interaction-design` and `service-design`.
 
 Raised 2026-09-20.

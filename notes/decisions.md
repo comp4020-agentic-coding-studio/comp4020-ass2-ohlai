@@ -175,3 +175,14 @@ uses, it is about the clauses reconstructing the line exactly. Widening what
 counts as a joiner leaves that intact. Checked by rewording T2 from "almost
 always" to "mostly" and confirming the check still failed naming T2, then
 restoring.
+
+## 62bd36b test: one week serving a clause is a token week, not an argument
+
+Raised the coherence floor to two weeks per thesis clause. Nothing subtle in
+the change itself; the decision was in the failure message. The obvious version
+reports a count, "expected 1 to be greater than or equal to 2", which tells you
+the rule and not the problem. I made it name the week, so a clause scraping by
+on week 9 alone reads as "T3 is served by week 9 alone" and points at the page
+that needs to change. Checked against the current empty course, where all three
+clauses correctly report "served by no weeks" rather than the wrong message for
+the zero case.

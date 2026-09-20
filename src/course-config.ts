@@ -44,19 +44,27 @@ export const slopCourseMetaSchema = z
 // this API contract when the course is published.
 //
 // The code's last three digits were assigned to this repo when it was
-// provisioned, and no other course in the cohort has them. Change the first
-// digit to your course's level (and `level` to match); keep the other three.
-// STARTER_CONTENT: replace this course record, then remove this comment.
+// provisioned, and no other course in the cohort has them. Only the leading
+// level digit is ours, and it is 2.
+//
+// `description` is capped at 300 characters by the schema above, and the
+// course's own paragraph runs to 356. The first two sentences are here,
+// which is the part a catalogue entry needs. The third sentence, on what
+// students actually do, is on the outline page in full. See
+// notes/questions.md, question 6.
 export const courseMeta = slopCourseMetaSchema.parse({
-  code: "SLOP1034",
-  title: "Course Title Goes Here",
+  code: "SLOP2034",
+  title: "Your Call Is Important To Us",
   session: "Semester 1",
   year: 2027,
-  level: 1,
-  startDate: "2027-02-22",
-  endDate: "2027-05-28",
+  level: 2,
+  startDate: "2027-02-15",
+  endDate: "2027-05-21",
   description:
-    "One concise paragraph explaining what this course is, who it is for, " +
-    "and why somebody would choose to spend a semester taking it.",
-  tags: ["replace me"],
+    "Every system you use has decided how long you will wait and what you " +
+    "will be told while you do. This course treats that decision as design " +
+    "work: the thresholds, the progress indicators, the hold scripts, the " +
+    "queues, and the politics of who is asked to wait.",
+  // The schema allows three. The fourth the course wanted was "time".
+  tags: ["delay", "interaction-design", "service-design"],
 }) satisfies CourseMetaInput;
