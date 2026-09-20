@@ -25,7 +25,7 @@ const roleLabel = person.data.role ? roleLabels[person.data.role] : undefined;
 // so narrow the alt at the rendering boundary as well.
 const rawPhotoAlt = (person.data as { photoAlt?: unknown }).photoAlt;
 const photoAlt = typeof rawPhotoAlt === "string" ? rawPhotoAlt : "";
-// Every page owes a description --- it is what a search result and a shared
+// Every page owes a description. It is what a search result and a shared
 // link show underneath the title.
 const description = person.data.description;
 ---

@@ -392,3 +392,26 @@ slide never used the word. So I kept the broad pattern and named the three
 files that may mention the break, with a comment saying what each one earns
 its place with. A short allowlist you can read beats a clever regex you
 cannot. Checked by re-adding the deck slide and confirming it failed.
+
+## 95b87d8 feat: the outline page and the policies page
+
+The policies page was where I nearly invented assessment rules. I had written
+a late penalty of 5% per day to a floor of zero at fourteen days, and an
+extension process with a documentation threshold, and none of it came from
+anywhere. The provenance check caught it, not because it understood the
+policy but because 5% is a figure with no source behind it, which is exactly
+what an invented rule looks like from the outside. The obvious response was
+to write the figure into COURSE.md and declare a claim pointing at it, which
+would have laundered my invention into the source of truth. I deleted the
+section instead. The page now says the late policy is not set and logs it as
+question 8, which is worse for a student reading it today and correct.
+
+## 0e3a4a1 test: the voice check had never looked at the home page
+
+Found while cleaning up template leftovers, not by a check. `contentSources`
+matched `.md` and `.mdx`, and the home page is `.astro`, so the register
+rules had never applied to the first page anybody sees. The obvious fix was
+to edit the home page's em dash and move on, since I had it open. Widening
+the scan instead turned up a second hit in a page template I would not have
+opened at all. Checked by running the voice check before the fix, which found
+two files it had never read, and after, which found none.
