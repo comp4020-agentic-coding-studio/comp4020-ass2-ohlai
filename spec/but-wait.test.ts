@@ -44,6 +44,9 @@ const weekPages = nodesOfType("sessions").map((session) => {
   };
 });
 
+/** Markdown soft-wraps, so a name can straddle a line break. Flatten first. */
+const flat = (text: string): string => text.replace(/\s+/g, " ").toLowerCase();
+
 /** Sentence ends are terminal punctuation followed by a capital or the end. */
 const sentences = (text: string): string[] =>
   text
@@ -88,7 +91,7 @@ describe("but wait, there's more", () => {
     for (const page of weekPages) {
       expect(page.extra, `${page.id} declares no extra:`).not.toBe("");
       expect(
-        page.block.toLowerCase().includes(page.extra.toLowerCase()),
+        flat(page.block).includes(flat(page.extra)),
         `${page.id} declares extra: "${page.extra}", which its block never mentions`,
       ).toBe(true);
     }
@@ -98,7 +101,7 @@ describe("but wait, there's more", () => {
     for (const page of weekPages) {
       if (!page.extra) continue;
       expect(
-        page.before.toLowerCase().includes(page.extra.toLowerCase()),
+        flat(page.before).includes(flat(page.extra)),
         `${page.id} already uses "${page.extra}" in its body, so the block is a repeat`,
       ).toBe(false);
     }

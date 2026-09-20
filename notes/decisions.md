@@ -255,3 +255,17 @@ which is the decay I was least likely to notice by reading. Checked by writing
 a correct block on a template session, confirming it passed, then breaking it
 two ways: "there's more!" was caught as a heading that is not verbatim, and a
 four sentence body pushed past the cap was caught by the sentence count.
+
+## 8c38587 test: a citation is a claim about the world, so it carries provenance
+
+Readings became objects carrying `cite`, `source` and `retrieved`, and the
+check requires the source to be a URL or a DOI. The obvious alternative was to
+require a non-empty source string, which is what the figure provenance check
+does for its `source` field. I made it stricter here because the failure mode
+is different: a figure's source is usually a paper you either have or do not,
+whereas a reading's source is overwhelmingly likely to be "I know this paper",
+and a free text field accepts that. A URL or a DOI cannot be produced from
+memory. `measures` is not required, because the claim a citation makes is that
+the work exists as described, which the record either shows or does not.
+Checked by running the check against the template's readingless sessions,
+where it correctly reported the absence rather than passing on an empty list.
