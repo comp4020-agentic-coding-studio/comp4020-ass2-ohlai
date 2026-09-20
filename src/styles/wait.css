@@ -535,20 +535,6 @@ a.at-card:focus-within::before {
   margin: 0;
 }
 
-.course-head-art img {
-  display: block;
-  inline-size: 100%;
-  block-size: auto;
-}
-
-.course-head-art figcaption {
-  margin-block-start: 0.6rem;
-  color: var(--at-text-muted);
-  font-family: var(--at-font-mono);
-  font-size: var(--at-font-size-xs);
-  line-height: 1.5;
-}
-
 /* The facts row. Five derived values, none of them typed by hand. It sits
    inside the header element but reads as its own band, on the page's own
    background rather than the header's. */
@@ -730,11 +716,16 @@ a.at-card:focus-within::before {
   font-size: 1.1rem;
 }
 
+/* Body font, not mono. The panel above is instrument reading and wants
+   figures; this is four lines of prose explaining that the instrument is
+   lying, and mono made the one part a reader actually has to read the
+   hardest part to read. */
 .lie > figcaption {
   margin-block-start: 0.7rem;
-  color: var(--at-text-muted);
-  font-size: var(--at-font-size-xs);
-  line-height: 1.55;
+  color: var(--at-text-secondary);
+  font-family: var(--at-font-body);
+  font-size: var(--at-font-size-sm);
+  line-height: 1.5;
 }
 
 @media (prefers-reduced-motion: reduce) {
