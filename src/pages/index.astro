@@ -9,7 +9,6 @@ import Card from "astro-theme-university/components/Card.astro";
 import CardGrid from "astro-theme-university/components/CardGrid.astro";
 import BaseLayout from "astro-theme-university/layouts/BaseLayout.astro";
 import CourseHeader from "../components/CourseHeader.astro";
-import HoldPattern from "../components/HoldPattern.astro";
 import Thesis from "../components/Thesis.astro";
 import { courseMeta } from "../course-config";
 import { sessionLabels, siteConfig } from "../site-config";
@@ -18,8 +17,6 @@ import "../styles/wait.css";
 
 <BaseLayout title={courseMeta.title} description={courseMeta.description} {...siteConfig}>
   <CourseHeader slot="hero" />
-
-  <HoldPattern />
 
   <Thesis />
 

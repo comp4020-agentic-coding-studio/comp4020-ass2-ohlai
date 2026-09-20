@@ -653,3 +653,34 @@ decision, not an accident.
 
 `hero-home.avif` is deleted and its generator with it. It was a drawing of a
 progress bar stopped at 99% and the page now has one that really does.
+
+## 81788b4 and removing the hold screen
+
+The site's opening wait is gone, deliberately, and it is worth saying why
+because deleting a feature that worked looks like losing your nerve.
+
+Two complaints about it, both fair. It ran for a second and a half, which is
+not long enough to read the copy explaining itself, and once read or missed
+it never came back, because it was once per session. So its argument reached
+nobody: too fast to take in, and no way to go back for it.
+
+Underneath those is the real objection. It was the only compulsory wait on
+the site. The header's bar is ambient and the 404's throbber is incidental,
+and neither asks anything of anybody. The hold screen charged every visitor a
+toll to make a point about tolls. A course whose third thesis clause is that
+who is made to wait and what they are told while waiting is never neutral
+does not get to inflict an unskippable delay on every reader in order to
+demonstrate the idea. It was the site doing the thing the course criticises,
+and the two usability complaints were the symptom rather than the illness.
+
+The alternatives considered and not taken, given the deadline: an opt-in
+trigger, and a colophon page naming every technique the site uses on the
+reader with re-triggerable demos of each. The colophon is the better piece of
+work and would have made the intent explicit for a marker rather than
+implicit. It was cut for time, not because it was wrong, and it is the first
+thing to build if this site is ever picked up again.
+
+What carries the idea now: the header's bar, which lies continuously and
+costs nobody anything; the assessment weights and week positions, which use
+the same vocabulary where it actually informs; and the 404's throbber, on the
+one page where nothing is ever going to arrive.

@@ -260,72 +260,6 @@
   }
 }
 
-/* ------------------------------------------------------------ hold screen */
-
-/* The site's own wait. It is short, it is skippable, and it says what it is
-   while it runs, because the alternative is a site that looks broken.
-   `.is-holding` is set on <html> by the inline script only when the hold is
-   going to run at all, so a visitor who has already had it, or who asked for
-   reduced motion, never sees a frame of it. */
-.hold {
-  position: fixed;
-  z-index: 999;
-  display: grid;
-  place-items: center;
-  inset: 0;
-  padding: var(--at-gutter, 1.5rem);
-  background: var(--at-bg);
-}
-
-html:not(.is-holding) .hold {
-  display: none;
-}
-
-.hold-inner {
-  display: grid;
-  gap: 1.25rem;
-  justify-items: center;
-  inline-size: min(28rem, 100%);
-  text-align: center;
-}
-
-.hold-throbber {
-  --throbber-size: 2.5rem;
-  --throbber-weight: 3px;
-}
-
-.hold-copy {
-  margin: 0;
-  color: var(--at-heading);
-  font-size: var(--at-font-size-base);
-  line-height: 1.5;
-}
-
-.hold-meta {
-  margin: 0;
-  color: var(--at-text-secondary);
-  font-family: var(--at-font-mono);
-  font-size: var(--at-font-size-xs);
-  letter-spacing: 0.08em;
-}
-
-.hold-skip {
-  border: 1px solid var(--wait-rule);
-  border-radius: var(--at-border-radius, 4px);
-  padding: 0.4rem 0.9rem;
-  color: var(--at-text-secondary);
-  background: none;
-  font: inherit;
-  font-size: var(--at-font-size-sm);
-  cursor: pointer;
-}
-
-.hold-skip:hover,
-.hold-skip:focus-visible {
-  border-color: var(--at-primary);
-  color: var(--at-heading);
-}
-
 /* --------------------------------------------------------- reduced motion */
 
 @media (prefers-reduced-motion: reduce) {
@@ -334,9 +268,6 @@ html:not(.is-holding) .hold {
     animation: none;
   }
 
-  .hold {
-    display: none;
-  }
 }
 
 /* ------------------------------------------------------- editorial layer */
