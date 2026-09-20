@@ -49,3 +49,16 @@ the failure is silent: a check whose regex stops matching finds nothing and
 passes. Checked with `pnpm typecheck`, which is clean across 28 files, and by
 writing the coherence check against the parser immediately afterwards to
 confirm the shape was usable rather than merely plausible.
+
+## 110afc0 test: a week that serves no part of the thesis is a bug
+
+The coherence check, and the first one written because it is the one the
+course is most likely to fail quietly. The obvious alternative for the clause
+ids was to trust them: write `T1`, `T2`, `T3` in `COURSE.md` and have the weeks
+point at them. I made them verifiable instead, by asserting the three clauses
+rejoin into the verbatim thesis with only comma joiners between them. Trusting
+them means a clause can be reworded in a way that slowly stops matching the
+thesis it came from, and nothing notices, which is exactly the drift the check
+exists to catch. Checked by editing `T2` from "a designed component of it" to
+"a designed part of it" and confirming the rejoin test failed with the clause
+named, then restoring and confirming `git diff` was clean.
