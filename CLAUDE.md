@@ -12,15 +12,83 @@ behind it.
 
 ## What this is
 
-> TODO: replace this section with the course. One paragraph on what it is, who
-> it is for, and the single idea it carries for twelve weeks. Write it before
-> asking the agent for any content, because every page has to agree with it.
+SLOP2034 "Wait: The Design of Delay" is a twelve week course on the design of
+waiting. Its thesis, and the whole of what it argues, is one line:
+
+> waiting is not a failure of a system, it is a designed component of it, and the design is almost always about managing the person rather than the delay
+
+Every week takes one part of that line and does something to it that no other
+week does. `COURSE.md` is where the thesis, the twelve weeks, the assessment,
+the dates and the voice rules live, and it is the single source of truth for
+all of them.
 
 The platform is Slop University and the course is mine. A marker reads this
 site the way a prospective student would, for about ten minutes: the home page,
 a few non-adjacent weeks, an assessment, the deck, the policies page, at both
 viewports. Twelve weeks that repeat one another is the failure mode to design
 against.
+
+## Working from COURSE.md
+
+These are the rules the course content is written under. They outrank
+convenience, they outrank finishing, and they are not satisfied by something
+that looks close.
+
+- **Read `COURSE.md` before writing any content.** Not a skim. The thesis, the
+  clause ids, the twelve `does:` lines and the voice rules are the brief for
+  every sentence on the site.
+- **Every page states which thesis clause or which week's `does:` line it
+  serves.** Session pages declare `serves:` in frontmatter. Assessment pages
+  declare `tests:`. A page that serves nothing is not a page that needs
+  improving, it is a page that gets deleted.
+- **Never invent a week, an assessment, a date, a reading or a statistic.** If
+  a page needs something `COURSE.md` does not have, stop. Append the question
+  to `notes/questions.md`, say in the answer that you stopped and what you
+  stopped on, and leave the hole. A plausible placeholder is worse than an
+  empty section, because an empty section gets fixed and a plausible one ships.
+- **Any claim about the world carries provenance.** Three fields, all
+  populated: where it came from, the date it was retrieved, and what it
+  actually measures. Declare them in the entry's `claims:` frontmatter. No
+  claim ships without all three, and "what it measures" is the one that gets
+  skipped, so write it first. A figure whose population, method or unit you
+  cannot state is a figure you do not have.
+- **Voice: second person to the student, plain declaratives, no hype.** The
+  forbidden constructions are enforced by `spec/voice.test.ts`. Do not work
+  around a hit by reaching for a synonym. The phrase is banned because the move
+  behind it is banned, so rewrite the sentence to not need it. The `unslop`
+  skill applies on top of this to every word a student reads.
+- **One commit per unit of work.** Never squash, never amend. Conventional
+  commit messages: `docs:`, `test:`, `feat:`, `fix:`, `chore:`.
+- **After every commit, append to `notes/decisions.md`:** the hash, what you
+  did, what the obvious alternative was, why you went the other way, and how
+  you checked the result was right. One short paragraph. The entry for a commit
+  lands in the commit after it, because it needs that hash. The last commit of
+  any run is the one that carries its predecessor's entry.
+- **Never weaken a check to make it pass.** A red check is information about
+  the course, not an obstacle in front of it. If a check is wrong, say so and
+  change it on purpose, in its own commit, with the reasoning in
+  `notes/decisions.md`.
+
+### What the checks in `spec/` hold
+
+Each file protects one course design decision and its header comment names it.
+
+| Check | The decision it protects |
+| :-- | :-- |
+| `coherence` | A week that serves no part of the thesis is a bug, and so is a clause no week serves. |
+| `distinctness` | Twelve weeks that blur into each other are twelve weeks of one week. |
+| `voice` | The register is a course design decision, not a preference. |
+| `assessment` | Assessment measures the thesis or it measures nothing. |
+| `calendar` | Twelve weeks, in order, once each. |
+| `provenance` | A number without provenance is a rumour. |
+| `deck` | A linked deck that is a stub is a broken promise to a marker. |
+
+`spec/course-md.ts` is the parser they share. It is the only thing that reads
+`COURSE.md`'s syntax, so the format is changed in one place.
+
+`CLAUDE.md`, `spec/` and `notes/` are harness and not student-facing copy, so
+the voice check does not scan them. That is why the forbidden list can be
+written down in `spec/voice.test.ts` at all.
 
 ## Hard constraints
 
