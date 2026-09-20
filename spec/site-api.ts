@@ -41,7 +41,14 @@ export interface SourceFile {
   text: string;
 }
 
-/** Every content source a student's eye lands on, read from disk. */
+/**
+ * Every content source a student's eye lands on, read from disk.
+ *
+ * `.astro` pages are in here as well as markdown ones. The home page is an
+ * `.astro` file carrying as much reader-facing prose as any `.md`, and
+ * leaving it out meant the voice check had never once looked at the first
+ * page anybody sees.
+ */
 export function contentSources(): SourceFile[] {
   const roots = ["COURSE.md", "src/content", "src/decks", "src/pages"];
   const files: SourceFile[] = [];
@@ -57,7 +64,7 @@ export function contentSources(): SourceFile[] {
       for (const child of readdirSync(full)) walk(join(entry, child));
       return;
     }
-    if (!/\.(md|mdx)$/.test(full)) return;
+    if (!/\.(md|mdx|astro)$/.test(full)) return;
     if (/(^|[\/])CLAUDE\.md$/.test(full)) return;
     files.push({ path: relative(resolve("."), full).split(sep).join("/"), text: readFileSync(full, "utf8") });
   };
