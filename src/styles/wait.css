@@ -411,10 +411,10 @@ a.at-card:focus-within::before {
    and all, and the percentages resolve against the same width because the
    band is exactly as wide as <body>.
 
-   The inner blocks span `full` and are then centred in a box a little wider
-   than the content column: 54rem against the page's 46rem. The band reads as
-   its own thing rather than as a wide stripe behind a narrow page, and the
-   extra width is where the bar and the title need it.
+   The inner blocks span `full` and are then centred in a box wider than the
+   content column: 62rem against the page's 46rem. The band reads as its own
+   thing rather than as a wide stripe behind a narrow page, and the extra
+   width is where the bar and the title need it.
 
    Getting here took three tries, all of which looked plausible. A box
    centred on nothing in particular started its title 225px left of the
@@ -445,8 +445,8 @@ a.at-card:focus-within::before {
   justify-self: center;
   inline-size: 100%;
   grid-column: full;
-  /* 54rem against the page's 46rem --at-content-width. */
-  max-inline-size: 54rem;
+  /* 62rem against the page's 46rem --at-content-width. */
+  max-inline-size: 62rem;
   padding-inline: var(--at-gutter, 1.5rem);
 }
 
