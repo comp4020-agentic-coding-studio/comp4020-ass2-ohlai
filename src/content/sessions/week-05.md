@@ -7,7 +7,7 @@ week: 5
 date: 2027-03-15
 serves:
   - T2
-extra: the airline search feed
+extra: flight search that lists carriers
 readings:
   - cite: "Buell, R. W. and Norton, M. I. (2011). The labor illusion: how operational transparency increases perceived value. Management Science 57(9), 1564-1579."
     source: https://doi.org/10.1287/mnsc.1110.1376
