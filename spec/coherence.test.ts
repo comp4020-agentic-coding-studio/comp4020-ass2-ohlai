@@ -6,6 +6,9 @@
 // visible from inside week 7, only from the whole, so it has to be a check.
 // Both directions matter. Weeks that serve nothing are padding; clauses
 // nothing serves mean the thesis promises more than the course delivers.
+//
+// The floor on the second direction is two weeks, not one. A clause that one
+// week serves has a token week, not an argument.
 import { describe, expect, it } from "vitest";
 import { readCourseBible, TEACHING_WEEKS } from "./course-md";
 import { nodesOfType, stringList } from "./site-api";
@@ -13,6 +16,9 @@ import { nodesOfType, stringList } from "./site-api";
 const bible = readCourseBible();
 const clauseIds = bible.clauses.map((clause) => clause.id);
 const sessions = nodesOfType("sessions");
+
+// A clause needs more than a token week. See the test that uses it.
+const MIN_WEEKS_PER_CLAUSE = 2;
 
 describe("the thesis and its clauses", () => {
   it("states a thesis", () => {
@@ -70,10 +76,20 @@ describe("what each week serves", () => {
     }
   });
 
-  it("leaves no thesis clause unserved", () => {
-    const served = new Set(sessions.flatMap((session) => stringList(session.meta?.serves)));
+  it(`gives every thesis clause at least ${MIN_WEEKS_PER_CLAUSE} weeks`, () => {
+    // One week per clause is the loophole. A clause satisfied by a single
+    // week is satisfied by a token: the week that exists so the check goes
+    // green, which the rest of the course then never returns to. A clause
+    // the course argues is a clause it comes back to, so the floor is two.
     for (const clause of bible.clauses) {
-      expect(served.has(clause.id), `no week serves ${clause.id}: "${clause.text}"`).toBe(true);
+      const weeks = sessions
+        .filter((session) => stringList(session.meta?.serves).includes(clause.id))
+        .map((session) => Number(session.meta?.week))
+        .sort((a, b) => a - b);
+      expect(
+        weeks.length,
+        `${clause.id} ("${clause.text}") is served by ${weeks.length === 0 ? "no weeks" : `week ${weeks.join(", ")} alone`}`,
+      ).toBeGreaterThanOrEqual(MIN_WEEKS_PER_CLAUSE);
     }
   });
 });

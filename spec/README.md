@@ -40,7 +40,7 @@ Assignment 2. A course with a thesis needs them whatever it is built in.
 
 | File | The decision |
 | :-- | :-- |
-| `coherence.test.ts` | A week serving no part of the thesis is a bug, and so is a clause no week serves. |
+| `coherence.test.ts` | A week serving no part of the thesis is a bug, and so is a clause fewer than two weeks serve. |
 | `distinctness.test.ts` | Twelve weeks that blur into each other are one week taught twelve times. |
 | `voice.test.ts` | The register is a course design decision, not a preference. |
 | `assessment.test.ts` | Assessment measures the thesis or it measures nothing. |

@@ -75,7 +75,7 @@ Each file protects one course design decision and its header comment names it.
 
 | Check | The decision it protects |
 | :-- | :-- |
-| `coherence` | A week that serves no part of the thesis is a bug, and so is a clause no week serves. |
+| `coherence` | A week that serves no part of the thesis is a bug, and so is a clause fewer than two weeks serve. |
 | `distinctness` | Twelve weeks that blur into each other are twelve weeks of one week. |
 | `voice` | The register is a course design decision, not a preference. |
 | `assessment` | Assessment measures the thesis or it measures nothing. |

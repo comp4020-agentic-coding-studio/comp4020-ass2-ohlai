@@ -161,3 +161,17 @@ classifying seven of the nine tests in the directory is worse than one that
 never made the claim. Checked by reading it against the actual directory
 listing, and by confirming the two overlaps with `assignment-2.test.ts` are
 described as the deliberate pairs they are rather than as duplication.
+
+## 3670081 docs: the thesis gains a third clause, about who is made to wait
+
+Replaced the thesis with the three clause version and moved the split from
+commas to semicolons. The work was in the rejoin assertion, which failed
+immediately because its joiner pattern only knew about commas. The obvious
+alternative was to drop the assertion, since it was written for a thesis that
+no longer exists and it is the only thing standing between me and a green
+check. I widened the joiner set to `[;,]` and allowed a sentence-final full
+stop instead, because the assertion is not about which punctuation the thesis
+uses, it is about the clauses reconstructing the line exactly. Widening what
+counts as a joiner leaves that intact. Checked by rewording T2 from "almost
+always" to "mostly" and confirming the check still failed naming T2, then
+restoring.
