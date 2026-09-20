@@ -163,9 +163,9 @@ people pages state these and add nothing to them.
 - scope: every item except the Studio Presentation, which happens in a room on a day and cannot be handed in late
 
 ### Extensions
-- up to 5 days: granted by the convenor on the request, asked for before the due time, no documentation
-- beyond 5 days: needs documentation and goes through the university's process
-- decision turnaround: 2 working days from the request
+- short: up to 5 days, granted by the convenor on the request, with no documentation
+- long: beyond 5 days, needs documentation and goes through the university's process
+- turnaround: a decision within 2 working days of the request
 
 The turnaround is a published number because this course cannot argue that
 delay is designed and then leave you refreshing your inbox for an answer it

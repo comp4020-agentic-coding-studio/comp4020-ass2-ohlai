@@ -56,9 +56,39 @@ export interface SourceFile {
  * `.astro` file carrying as much reader-facing prose as any `.md`, and
  * leaving it out meant the voice check had never once looked at the first
  * page anybody sees.
+ *
+ * `src/components` joined the list for the same reason, one step later. The
+ * hold screen's copy and the thesis block's labels are read by every visitor
+ * and lived in a directory nothing scanned, which is the page-level hole
+ * again at component level. A component is reader-facing copy the moment it
+ * contains a sentence.
  */
+/**
+ * Blanks the parts of an `.astro` file that are code rather than copy.
+ *
+ * Scanning components found two things on the first run, and both were the
+ * scanner's fault: a `--bar-value: 99%` in a style attribute reported as an
+ * undeclared figure, and a `1500ms` inside a comment in an inline script.
+ * Neither is a sentence anybody reads. A rule that cries wolf on CSS gets
+ * switched off, so the scanner learns the difference instead.
+ *
+ * `<script>` and `<style>` blocks go, and so do `style` attributes. Every
+ * other attribute stays: `alt`, `title` and `aria-label` are copy a reader
+ * meets, and they are exactly the kind that escapes review.
+ *
+ * Content is replaced with blank lines rather than removed, so the line
+ * numbers a failure reports still point at the real line.
+ */
+function stripCode(text: string): string {
+  const blank = (match: string): string => match.replace(/[^\n]/g, " ");
+  return text
+    .replace(/<script\b[\s\S]*?<\/script>/gi, blank)
+    .replace(/<style\b[\s\S]*?<\/style>/gi, blank)
+    .replace(/\sstyle=(?:"[^"]*"|'[^']*'|\{[^}]*\})/gi, blank);
+}
+
 export function contentSources(): SourceFile[] {
-  const roots = ["COURSE.md", "src/content", "src/decks", "src/pages"];
+  const roots = ["COURSE.md", "src/content", "src/decks", "src/pages", "src/components"];
   const files: SourceFile[] = [];
   const walk = (entry: string): void => {
     const full = resolve(entry);
@@ -74,7 +104,9 @@ export function contentSources(): SourceFile[] {
     }
     if (!/\.(md|mdx|astro)$/.test(full)) return;
     if (/(^|[\/])CLAUDE\.md$/.test(full)) return;
-    files.push({ path: relative(resolve("."), full).split(sep).join("/"), text: readFileSync(full, "utf8") });
+    const path = relative(resolve("."), full).split(sep).join("/");
+    const raw = readFileSync(full, "utf8");
+    files.push({ path, text: path.endsWith(".astro") ? stripCode(raw) : raw });
   };
   for (const root of roots) walk(root);
   return files;

@@ -499,3 +499,50 @@ trap `CLAUDE.md` already documents: a hand-written root-absolute href in an
 `.astro` file skips the base path. Fixed with the theme's `withBase`. The
 rule was written down and I still walked into it, which is an argument for
 the check rather than for the rule.
+
+## e1c683e feat: the course's imagery, its policy figures, and the holes filled
+
+Three strands, one commit, because they turned out to be the same strand.
+
+The images. `scripts/make-images.mjs` is committed alongside its output so a
+palette change is a re-run rather than a redraw. The hero went through three
+versions and the first two were wrong in ways only looking at the page
+showed. Version one drew the bar at 99% of its width, which is four pixels of
+gap on a 1360 pixel bar and reads as a full bar: the joke was invisible. It
+became ten segments with the last one empty. Version two was 16:9, and the
+theme centre-crops the hero to a wide banner, so it shipped as a row of legs
+with the bar cropped off the top. The source is now 4:1. The rule this
+produced is in `CLAUDE.md` already and I still had to learn it twice: the
+rendered page is the truth, my mental model of it is not.
+
+The portraits are deleted rather than replaced. The first attempt drew eyes
+and a mouth and produced a smiley floating over a pair of shoulders. The
+second reduced to a circle above a hill, which is the silhouette every "no
+photo" placeholder already uses, so it read as unfinished rather than as a
+choice. `photo` is optional in the people schema and `check-evidence` says in
+as many words that an image-free treatment passes. Two bad options and one
+honest one.
+
+The policy. Questions 8 and 9 in `notes/questions.md` had been open since the
+day before with the pages saying "not set yet" in place of a rule, which is
+the right call when nothing has been decided and the wrong one to ship. I
+wrote them into `COURSE.md` first rather than onto the page, because the
+site answers to the bible and a rule invented straight onto a page has no
+source of truth behind it.
+
+Then `provenance.test.ts` failed on the "5%" inside the minute. That check is
+mine and it was right: its header comment says a weight or a late penalty
+should render from data and not be restated in prose. The tempting fix was to
+exempt the page. Instead the numbers moved into `COURSE.md`, `course-md.ts`
+learned to parse a `## Policy` section, and `PolicyTable.astro` renders them,
+so the page carries no figures at all now. The check kept its teeth and the
+page got better, which is the argument for writing checks that are annoying
+to satisfy.
+
+One exemption was added, scoped to `COURSE.md`'s `## Policy` section alone. A
+figure there is the course setting a rule about itself. It has no source, no
+retrieval date and nothing it measures, because the course is where it comes
+from, and demanding provenance would have meant inventing a citation for a
+decision. Everywhere else in the bible a figure is still a claim that owes
+all three fields. Checked by putting an undeclared "200ms" into the Weeks
+section and confirming it still fails.

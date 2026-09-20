@@ -115,6 +115,16 @@ documentation and from when, and who grants them.
 
 Raised 2026-09-20.
 
+**Answered 2026-09-21.** 5% of the item's available marks per day, floor at
+seven days, the Studio Presentation exempt because it happens in a room.
+Extensions up to five days from the convenor on the request with no
+documentation, longer than that through the university's process, and a
+decision inside two working days. The turnaround is published rather than
+left vague, because this course cannot argue that delay is designed and then
+leave a student refreshing an inbox for an answer it has already reached.
+All four live in COURSE.md's `## Policy` section and render onto the page
+through `PolicyTable.astro`, so the page cannot drift from the rule.
+
 ## 9. The teaching team is still the template's
 
 `src/content/people/` holds two people who arrived with the template. The
@@ -125,3 +135,14 @@ consultation hours cannot be invented.
 Needed: who teaches this course, and what each of them does.
 
 Raised 2026-09-20.
+
+**Partly answered 2026-09-21.** Consultation is set for both: the convenor
+on Wednesdays 14:00 to 15:30 in teaching weeks, the tutor for thirty minutes
+after each Thursday workshop. Both are drop-in, which is a course design
+decision rather than an administrative one, because a booking system is a
+queue with an admission test and week 7 is about what that does.
+
+Still open: the two names are the template's and remain invented. The
+portraits are gone rather than replaced, since `photo` is optional in the
+people schema and a generated avatar would be a plausible placeholder, which
+is the thing this repo's rules say is worse than a hole.

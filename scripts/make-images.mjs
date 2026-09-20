@@ -42,23 +42,32 @@ const figure = (x, y, scale, fill, opacity = 1) => `
     <path d="M -30 0 a 30 42 0 0 1 60 0 L 30 66 L -30 66 Z" />
   </g>`;
 
+/** A figure's extent below its baseline, so a queue can sit on a frame edge. */
+const FIGURE_DEPTH = 66;
+
 /** The queue: seven figures, evenly spaced, the one at the head picked out. */
-const queue = (baseline, width, headFill, tailFill) => {
+const queue = (baseline, width, headFill, tailFill, scale = 1) => {
   const count = 7;
   const gap = width / (count + 1);
   return Array.from({ length: count }, (_, index) => {
     const x = gap * (index + 1);
     const isHead = index === 0;
     // The tail of a queue fades because you cannot see the end of one you
-    // are standing in. The head does not.
-    const opacity = isHead ? 1 : 0.86 - index * 0.1;
-    return figure(x, baseline, 1, isHead ? headFill : tailFill, opacity);
+    // are standing in. The head does not. The floor keeps the last figure
+    // readable: on near black a low alpha bone goes to nothing at all.
+    const opacity = isHead ? 1 : Math.max(0.38, 0.92 - index * 0.09);
+    return figure(x, baseline, scale, isHead ? headFill : tailFill, opacity);
   }).join("");
 };
 
-const heroSvg = (w = 1600, h = 900) => {
-  const trackX = 120;
-  const trackW = w - 240;
+// The theme renders the hero as a wide banner and centre-crops whatever it
+// is given. A 16:9 source lost the top third, which is where the first
+// version put the bar: the picture shipped as a row of legs. The source is
+// 4:1 so the crop is close to a no-op, and everything sits inside the middle
+// band in case the ratio shifts on a narrower viewport.
+const heroSvg = (w = 1600, h = 400) => {
+  const trackX = 110;
+  const trackW = w - 220;
   // The gap has to be visible or the picture does not make the point, and
   // 1% of this width is four pixels. The bar is drawn in ten segments with
   // the last one empty, which reads as "nearly done" at a glance and is the
@@ -67,8 +76,8 @@ const heroSvg = (w = 1600, h = 900) => {
   const segW = trackW / segments;
   const bars = Array.from({ length: segments }, (_, index) => {
     const filled = index < segments - 1;
-    return `<rect x="${trackX + index * segW + 4}" y="0" width="${segW - 8}" height="30"
-      fill="${filled ? AMBER_LIGHT : BONE}" opacity="${filled ? 1 : 0.18}" />`;
+    return `<rect x="${trackX + index * segW + 4}" y="0" width="${segW - 8}" height="22"
+      fill="${filled ? AMBER_LIGHT : BONE}" opacity="${filled ? 1 : 0.22}" />`;
   }).join("");
 
   return `
@@ -79,16 +88,16 @@ const heroSvg = (w = 1600, h = 900) => {
        than omitted, because the gap is the part week 4 is about. The offset
        amber pass underneath is the second riso impression. -->
   <g transform="translate(0 ${h * 0.2})">
-    <g transform="translate(7 7)" opacity="0.4">${bars}</g>
+    <g transform="translate(6 6)" opacity="0.4">${bars}</g>
     ${bars}
   </g>
 
-  <!-- The queue sits in the upper middle, clear of the band where the theme
-       lays the page title over this image. -->
-  <g transform="translate(6 6)" opacity="0.45">
-    ${queue(h * 0.6, w, AMBER, AMBER)}
+  <!-- The queue, standing on a baseline inside the frame rather than on its
+       edge, so a few pixels of crop at the bottom take nothing away. -->
+  <g transform="translate(5 5)" opacity="0.4">
+    ${queue(h - FIGURE_DEPTH * 0.8, w, AMBER, AMBER, 0.8)}
   </g>
-  ${queue(h * 0.6, w, AMBER_LIGHT, BONE)}
+  ${queue(h - FIGURE_DEPTH * 0.8, w, AMBER_LIGHT, BONE, 0.8)}
 </svg>`;
 };
 
