@@ -92,3 +92,14 @@ loose reading does not test that. Checked with a fixture calendar of twelve
 weekly dates and two items, one due 2027-03-05 and one due 2027-06-01: the
 first passed, the second failed naming its own date, and a `tests: T9` on the
 second was rejected for citing a clause the thesis does not have.
+
+## 3d1b54c test: twelve teaching weeks, in order, once each
+
+The calendar check. The obvious alternative was three separate assertions:
+twelve entries, no duplicate dates, dates ascending. I collapsed the last two
+into one strictly increasing comparison, because equal dates are not
+increasing and a week out of order goes backwards, so one assertion catches
+both and names the two weeks involved rather than reporting that a set had the
+wrong size. Checked with a fixture of twelve weekly dates, then by moving week
+5 onto week 4's date and week 9 back to week 7's: the check failed naming
+"week 5 (2027-03-15) does not come after week 4 (2027-03-15)".
