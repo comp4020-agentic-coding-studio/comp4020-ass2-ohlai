@@ -239,3 +239,19 @@ of slack by accident, and the assessment page says it is deliberate rather
 than leaving a student to assume an oversight. Checked by running the
 assessment test: weights total exactly 100, and all four due dates resolve to
 teaching weeks 3, 6, 10 and 12 under the seven day window rule.
+
+## e077da5 test: a recurring block that repeats itself is a broken promise
+
+The "But wait, there's more" check, written before any block exists. The hard
+part was "no two weeks name the same artefact", which is not readable from
+prose. The obvious alternative was to compare the block bodies for similarity
+and flag near-duplicates, which is fuzzy, tuned by a threshold, and fails in
+both directions. I made the page declare its artefact in `extra:` instead, and
+then got three checks out of one field: the name must appear inside the block,
+must not appear in the page body above it, and must not appear on another
+week. That turns a similarity problem into three exact string comparisons, and
+the second of them catches the block quietly becoming a summary of the week,
+which is the decay I was least likely to notice by reading. Checked by writing
+a correct block on a template session, confirming it passed, then breaking it
+two ways: "there's more!" was caught as a heading that is not verbatim, and a
+four sentence body pushed past the cap was caught by the sentence count.

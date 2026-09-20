@@ -11,7 +11,7 @@
 // returns to is a spine. Two is a repeat.
 import { describe, expect, it } from "vitest";
 import { readCourseBible } from "./course-md";
-import { nodesOfType, stringList } from "./site-api";
+import { nodesOfType } from "./site-api";
 
 const bible = readCourseBible();
 const sessions = nodesOfType("sessions");
@@ -68,10 +68,17 @@ describe("what makes each week its own week", () => {
 });
 
 describe("the reading lists", () => {
+  // A reading is an object carrying its own provenance, so the thing being
+  // compared is its `cite`. spec/readings.test.ts holds the rest of it.
+  const citations = (value: unknown): string[] =>
+    Array.isArray(value)
+      ? value.map((entry) => normalise(String((entry as { cite?: unknown })?.cite ?? ""))).filter(Boolean)
+      : [];
+
   const readingsByWeek = sessions.map((session) => ({
     id: session.id,
     week: Number(session.meta?.week),
-    readings: stringList(session.meta?.readings).map(normalise),
+    readings: citations(session.meta?.readings),
   }));
 
   it("puts readings on every week page", () => {
