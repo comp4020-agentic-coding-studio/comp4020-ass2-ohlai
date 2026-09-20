@@ -32,7 +32,7 @@ green is how you arrive with no surprises.
 
 ## The course design sensors (mine, carried forward)
 
-Nine checks that hold the course's design decisions rather than this brief's
+Ten checks that hold the course's design decisions rather than this brief's
 requirements. Each file's header comment names the decision it protects, and
 `COURSE.md` is what all seven read. They are sensors, not contract tests: none
 of them retire when Assignment 2 does, because none of them are about
@@ -49,6 +49,7 @@ Assignment 2. A course with a thesis needs them whatever it is built in.
 | `deck.test.ts` | A linked deck that is a stub is a broken promise. |
 | `but-wait.test.ts` | A recurring block that repeats itself is a broken promise. |
 | `readings.test.ts` | A citation is a claim about the world, so it carries provenance. |
+| `one-joke.test.ts` | The course makes its one joke about its own break exactly once. |
 
 `course-md.ts` parses `COURSE.md` and is the only thing that knows its syntax.
 `site-api.ts` reads the generated API and the content sources. Neither is a

@@ -84,6 +84,7 @@ Each file protects one course design decision and its header comment names it.
 | `deck` | A linked deck that is a stub is a broken promise to a marker. |
 | `but-wait` | A recurring block that repeats itself is a broken promise. |
 | `readings` | A citation is a claim about the world, so it carries provenance. |
+| `one-joke` | The course makes its one joke about its own break exactly once. |
 
 `spec/course-md.ts` is the parser they share. It is the only thing that reads
 `COURSE.md`'s syntax, so the format is changed in one place.
