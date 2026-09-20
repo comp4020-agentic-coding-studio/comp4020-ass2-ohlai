@@ -1,0 +1,89 @@
+---
+// The site's own wait, on the home page only.
+//
+// A course arguing that delay is a designed component rather than an
+// accident should be willing to have designed one. This is that, and it is
+// built to the course's own rules rather than as a gag:
+//
+//   week 3   the throbber is indeterminate, so it tells you nothing about
+//            how long is left, which is the point being made
+//   week 4   the bar underneath is determinate and stops at 99%, because
+//            that is what the ones in the wild do
+//   week 10  the delay is artificial. Nothing is loading. The copy says so
+//            rather than implying a fetch that is not happening
+//
+// The constraints it is built under, in order of how much they matter:
+//
+//   the page content is in the DOM the whole time. The overlay is additive,
+//   so the accessibility pass, the link checker and any reader without
+//   JavaScript get the full page
+//
+//   it is skippable by click, by key, and by a real button that takes focus
+//
+//   it runs once per session, not once per page view, so moving around the
+//   site never hits it again
+//
+//   `prefers-reduced-motion` skips it entirely, and the class that shows it
+//   is never set. Inflicting an unskippable delay on somebody who asked for
+//   less movement would be the course doing the thing it criticises
+---
+
+{/* Runs before the overlay paints, so a visitor who is not getting the hold
+    never sees a frame of it: the CSS hides `.hold` unless this sets the
+    class. */}
+<script is:inline>
+  (() => {
+    const reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    let seen = false;
+    try {
+      seen = sessionStorage.getItem("slop2034-held") === "1";
+    } catch {
+      // Private mode and blocked storage both land here. Treat it as seen:
+      // an unskippable-feeling repeat is worse than missing the effect.
+      seen = true;
+    }
+    if (reduced || seen) return;
+    document.documentElement.classList.add("is-holding");
+    try {
+      sessionStorage.setItem("slop2034-held", "1");
+    } catch {
+      /* nothing to do: the hold still ends on its own timer below */
+    }
+  })();
+</script>
+
+<div class="hold" role="status" aria-live="polite">
+  <div class="hold-inner">
+    <span class="throbber hold-throbber"></span>
+    <p class="hold-copy">
+      Nothing is loading. This page is ready and is being withheld from you
+      for one and a half seconds.
+    </p>
+    <div class="bar" data-fill="animate" style="--bar-value: 99%"></div>
+    <p class="hold-meta">SLOP2034 · artificial latency · week 10</p>
+    <button class="hold-skip" type="button" data-hold-skip>Stop waiting</button>
+  </div>
+</div>
+
+<script is:inline>
+  (() => {
+    const root = document.documentElement;
+    if (!root.classList.contains("is-holding")) return;
+    const overlay = document.querySelector(".hold");
+    const release = () => {
+      root.classList.remove("is-holding");
+      window.removeEventListener("keydown", release);
+      overlay?.removeEventListener("click", release);
+    };
+    // 1500ms of hold plus the tail of the bar's ease. The copy promises one
+    // and a half seconds, so the number here is the one the reader was told.
+    const timer = window.setTimeout(release, 1500);
+    const releaseNow = () => {
+      window.clearTimeout(timer);
+      release();
+    };
+    window.addEventListener("keydown", releaseNow, { once: true });
+    overlay?.addEventListener("click", releaseNow, { once: true });
+    document.querySelector("[data-hold-skip]")?.addEventListener("click", releaseNow, { once: true });
+  })();
+</script>

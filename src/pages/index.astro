@@ -2,19 +2,23 @@
 import Card from "astro-theme-university/components/Card.astro";
 import CardGrid from "astro-theme-university/components/CardGrid.astro";
 import ContentLayout from "astro-theme-university/layouts/ContentLayout.astro";
+import HoldPattern from "../components/HoldPattern.astro";
+import Thesis from "../components/Thesis.astro";
 import heroImage from "../assets/images/hero-home.avif";
 import { courseMeta } from "../course-config";
 import { sessionLabels, siteConfig } from "../site-config";
-
+import "../styles/wait.css";
 ---
 
 <ContentLayout
   title={courseMeta.title}
   description={courseMeta.description}
   heroImage={heroImage}
-  heroImageAlt="A lecture theatre reduced to flat gold and black shapes, rows of seats sweeping past the frame, in a two-ink risograph print"
+  heroImageAlt="A progress bar stopped at ninety-nine percent above a queue of seven figures, in flat gold and black on warm cream, in a two-ink risograph print"
   {...siteConfig}
 >
+  <HoldPattern />
+
   <p class="course-code">
     {courseMeta.code}. {courseMeta.session}, {courseMeta.year}.
   </p>
@@ -22,6 +26,10 @@ import { sessionLabels, siteConfig } from "../site-config";
   <ul class="course-tags" aria-label="Course tags">
     {courseMeta.tags.map((tag) => <li>{tag}</li>)}
   </ul>
+
+  <Thesis />
+
+  <hr class="queue-rule" />
 
   <h2>What you will do</h2>
   <p>
@@ -49,6 +57,8 @@ import { sessionLabels, siteConfig } from "../site-config";
     If you want a course on performance optimisation, this is the wrong one.
   </p>
 
+  <hr class="queue-rule" />
+
   <h2>Where to go next</h2>
   <CardGrid columns={2}>
     <Card title={sessionLabels.plural} href="/sessions/">
@@ -56,6 +66,9 @@ import { sessionLabels, siteConfig } from "../site-config";
     </Card>
     <Card title="Assessment" href="/assessments/">
       <p>What is marked, what it is worth, and when it is due.</p>
+    </Card>
+    <Card title="Lectures" href="/lectures/">
+      <p>What each week's lecture argues, and the slides where there are any.</p>
     </Card>
     <Card title="People" href="/people/">
       <p>Who teaches the course and how to reach them.</p>

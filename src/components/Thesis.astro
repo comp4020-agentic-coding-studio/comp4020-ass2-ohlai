@@ -1,0 +1,61 @@
+---
+// The thesis, on the page every other page points at.
+//
+// Two pages sent readers to the front page for this line and the front page
+// did not have it: the week 1 deck says the rest of the line arrives later
+// and to read it here, and week 12 defends interventions against "the three
+// clauses on the front page". They are now true.
+//
+// The line and the clauses are read out of COURSE.md at build time rather
+// than retyped here. COURSE.md says the thesis is verbatim everywhere and
+// `spec/coherence.test.ts` already holds the clauses to rejoining into it
+// character for character. Copying it into an .astro file would have put a
+// second copy one careless edit away from disagreeing with the first.
+import { getPublishedCollection } from "astro-course-university/content";
+import { withBase } from "astro-theme-university/url";
+import { readCourseBible } from "../../spec/course-md";
+
+const { thesis, clauses } = readCourseBible();
+
+const sessions = await getPublishedCollection("sessions");
+
+/** The weeks that declared `serves: <id>`, in week order. */
+const weeksServing = (id: string) =>
+  sessions
+    .filter((session) => {
+      const serves = (session.data as { serves?: unknown }).serves;
+      return Array.isArray(serves) && serves.map(String).includes(id);
+    })
+    .map((session) => session.data.week)
+    .sort((a, b) => a - b);
+---
+
+<section class="thesis" aria-labelledby="thesis-label">
+  <p class="thesis-label" id="thesis-label">The argument</p>
+  <p class="thesis-line">{thesis}</p>
+
+  <ol class="thesis-clauses">
+    {
+      clauses.map((clause) => {
+        const weeks = weeksServing(clause.id);
+        return (
+          <li class="thesis-clause">
+            <span class="clause-id">{clause.id}</span>
+            <p class="clause-text">{clause.text}</p>
+            <p class="clause-weeks">
+              {weeks.length} weeks take this on:{" "}
+              {weeks.map((week, index) => (
+                <>
+                  {index > 0 && ", "}
+                  <a href={withBase(`/sessions/week-${String(week).padStart(2, "0")}/`)}>
+                    {week}
+                  </a>
+                </>
+              ))}
+            </p>
+          </li>
+        );
+      })
+    }
+  </ol>
+</section>

@@ -1,0 +1,405 @@
+/* The course's own visual language.
+ *
+ * The platform fixes the wiring, and this file does not touch it:
+ * `astro.config.ts` still loads `astro-theme-slop/slop.css` and
+ * `site-config.ts` still spreads `slopBranding`, exactly as they arrived.
+ * The README hands the visual treatment to the course and says adding is
+ * always allowed, so the treatment is added here, after the brand sheet, and
+ * the fixed files stay fixed.
+ *
+ * What it changes and why:
+ *
+ *   the theme derives every surface, border and text colour from
+ *   `--at-primary` through oklch relative colour, so re-pointing that one
+ *   token re-tints the site coherently instead of leaving a patchwork
+ *
+ *   the default look is a soft card grid with rounded corners. A course
+ *   about queues, thresholds and numbers should read like a departure board:
+ *   square corners, hard rules, monospace labels and tabular figures
+ *
+ *   the Slop crest is gold and stays gold, so the accent moves toward amber
+ *   rather than away from it. The identity still holds the page together
+ *
+ * It also adds the vocabulary the course needs and the theme does not ship:
+ * an indeterminate throbber, a determinate bar, a queue rule, ruled week
+ * rows, and the thesis block the whole site points at.
+ *
+ * Every animated component checks `prefers-reduced-motion`. A course that
+ * argues delay is designed rather than accidental cannot then inflict an
+ * unskippable one on somebody who asked for less movement.
+ */
+
+:root {
+  /* One lever. Everything the theme derives follows this: backgrounds, text,
+     borders, dividers, links, focus rings, in both light and dark. A hotter,
+     deeper amber than the crest's gold, which keeps the lockup in the family
+     while moving the page off the default cream. */
+  --at-primary: oklch(0.53 0.148 52);
+
+  /* Headings go to ink rather than the accent. The theme points --at-heading
+     at --at-primary, which puts every h2 in brand colour and flattens the
+     page into one note. Ink headings with accent rules and accent numerals
+     give the hierarchy somewhere to go. */
+  --at-heading: light-dark(
+    oklch(from var(--at-primary) 18% 0.014 h),
+    oklch(from var(--at-primary) 96% 0.006 h)
+  );
+
+  /* Square. The rounded corner is most of what reads as "starter theme". */
+  --at-border-radius: 0;
+
+  --at-content-width: 46rem;
+
+  /* A bigger step between h1 and body than the theme ships, so a page has a
+     shape at a glance rather than three sizes of the same grey. */
+  --at-font-size-h1: clamp(2.3rem, 1.6rem + 3vw, 3.4rem);
+  --at-font-size-h2: clamp(1.45rem, 1.25rem + 0.9vw, 1.85rem);
+  --at-line-height-heading: 1.12;
+
+  /* The two durations the course is about, as CSS. The throbber uses the
+     felt one and the bar uses the measured one, which is the joke and also
+     the reason they are different numbers. */
+  --wait-measured: 1.8s;
+  --wait-felt: 1.1s;
+  --wait-track: color-mix(in oklab, var(--at-primary) 18%, transparent);
+  --wait-rule: color-mix(in oklab, var(--at-primary) 42%, transparent);
+}
+
+/* ---------------------------------------------------------------- throbber */
+
+/* Week 3's component. It communicates that something is happening and
+   nothing else, which is the whole of what it is for. */
+.throbber {
+  display: inline-block;
+  flex: none;
+  inline-size: var(--throbber-size, 1em);
+  block-size: var(--throbber-size, 1em);
+  border-radius: 50%;
+  background: conic-gradient(
+    from 0deg,
+    transparent 0deg,
+    var(--at-primary) 300deg,
+    transparent 360deg
+  );
+  mask: radial-gradient(
+    farthest-side,
+    transparent calc(100% - var(--throbber-weight, 2px)),
+    black calc(100% - var(--throbber-weight, 2px))
+  );
+  animation: throbber-spin var(--wait-felt) linear infinite;
+}
+
+@keyframes throbber-spin {
+  to {
+    transform: rotate(1turn);
+  }
+}
+
+/* ---------------------------------------------------------------- the bar */
+
+/* Week 4's component. It reaches 99% and then holds, because that is what
+   the ones in the wild do and the course is not going to pretend otherwise. */
+.bar {
+  position: relative;
+  inline-size: 100%;
+  block-size: var(--bar-height, 3px);
+  overflow: hidden;
+  border-radius: 999px;
+  background: var(--wait-track);
+}
+
+.bar::after {
+  position: absolute;
+  inset-block: 0;
+  inset-inline-start: 0;
+  content: "";
+  inline-size: var(--bar-value, 99%);
+  border-radius: inherit;
+  background: var(--at-primary);
+}
+
+.bar[data-fill="animate"]::after {
+  animation: bar-fill var(--wait-measured) cubic-bezier(0.12, 0.72, 0.22, 1) both;
+}
+
+@keyframes bar-fill {
+  from {
+    inline-size: 0%;
+  }
+  to {
+    inline-size: var(--bar-value, 99%);
+  }
+}
+
+/* ------------------------------------------------------------ queue rule */
+
+/* A section divider drawn as a queue: a row of ticks and then the one at the
+   head of it. Used instead of the theme's plain <hr>. */
+.queue-rule {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  margin-block: 3rem;
+  border: 0;
+  padding: 0;
+}
+
+.queue-rule::before {
+  flex: 1;
+  block-size: 1px;
+  content: "";
+  background: repeating-linear-gradient(
+    to right,
+    var(--wait-rule) 0 6px,
+    transparent 6px 12px
+  );
+}
+
+.queue-rule::after {
+  flex: none;
+  inline-size: 7px;
+  block-size: 7px;
+  content: "";
+  border-radius: 50%;
+  background: var(--at-primary);
+}
+
+/* ---------------------------------------------------------------- thesis */
+
+.thesis {
+  margin-block: 2.5rem 3rem;
+  border-block-start: 2px solid var(--at-primary);
+  padding-block-start: 1.75rem;
+}
+
+.thesis-label {
+  margin-block: 0 1rem;
+  color: var(--at-text-secondary);
+  font-family: var(--at-font-mono);
+  font-size: var(--at-font-size-xs);
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
+/* The thesis is set as the largest text on the site. It is the one sentence
+   every other page answers to, so nothing should outrank it visually. */
+.thesis-line {
+  margin: 0;
+  color: var(--at-heading);
+  font-size: clamp(1.35rem, 1.05rem + 1.5vw, 2.1rem);
+  font-weight: 600;
+  line-height: 1.32;
+  text-wrap: balance;
+}
+
+.thesis-clauses {
+  display: grid;
+  gap: 1px;
+  margin-block: 2rem 0;
+  padding: 0;
+  list-style: none;
+  background: var(--wait-rule);
+}
+
+.thesis-clause {
+  display: grid;
+  grid-template-columns: 3.25rem 1fr;
+  gap: 0 1rem;
+  padding-block: 1.1rem;
+  background: var(--at-bg);
+}
+
+.thesis-clause > .clause-id {
+  grid-row: 1 / span 2;
+  align-self: start;
+  color: var(--at-primary);
+  font-family: var(--at-font-mono);
+  font-size: var(--at-font-size-sm);
+  font-variant-numeric: tabular-nums;
+  letter-spacing: 0.06em;
+}
+
+.thesis-clause > .clause-text {
+  margin: 0;
+  color: var(--at-heading);
+  font-size: var(--at-font-size-base);
+  line-height: 1.5;
+}
+
+.thesis-clause > .clause-weeks {
+  margin-block: 0.5rem 0;
+  color: var(--at-text-secondary);
+  font-size: var(--at-font-size-sm);
+}
+
+.thesis-clause > .clause-weeks a {
+  font-variant-numeric: tabular-nums;
+}
+
+@media (width < 34rem) {
+  .thesis-clause {
+    grid-template-columns: 1fr;
+    gap: 0.35rem;
+  }
+
+  .thesis-clause > .clause-id {
+    grid-row: auto;
+  }
+}
+
+/* ------------------------------------------------------------ hold screen */
+
+/* The site's own wait. It is short, it is skippable, and it says what it is
+   while it runs, because the alternative is a site that looks broken.
+   `.is-holding` is set on <html> by the inline script only when the hold is
+   going to run at all, so a visitor who has already had it, or who asked for
+   reduced motion, never sees a frame of it. */
+.hold {
+  position: fixed;
+  z-index: 999;
+  display: grid;
+  place-items: center;
+  inset: 0;
+  padding: var(--at-gutter, 1.5rem);
+  background: var(--at-bg);
+}
+
+html:not(.is-holding) .hold {
+  display: none;
+}
+
+.hold-inner {
+  display: grid;
+  gap: 1.25rem;
+  justify-items: center;
+  inline-size: min(28rem, 100%);
+  text-align: center;
+}
+
+.hold-throbber {
+  --throbber-size: 2.5rem;
+  --throbber-weight: 3px;
+}
+
+.hold-copy {
+  margin: 0;
+  color: var(--at-heading);
+  font-size: var(--at-font-size-base);
+  line-height: 1.5;
+}
+
+.hold-meta {
+  margin: 0;
+  color: var(--at-text-secondary);
+  font-family: var(--at-font-mono);
+  font-size: var(--at-font-size-xs);
+  letter-spacing: 0.08em;
+}
+
+.hold-skip {
+  border: 1px solid var(--wait-rule);
+  border-radius: var(--at-border-radius, 4px);
+  padding: 0.4rem 0.9rem;
+  color: var(--at-text-secondary);
+  background: none;
+  font: inherit;
+  font-size: var(--at-font-size-sm);
+  cursor: pointer;
+}
+
+.hold-skip:hover,
+.hold-skip:focus-visible {
+  border-color: var(--at-primary);
+  color: var(--at-heading);
+}
+
+/* --------------------------------------------------------- reduced motion */
+
+@media (prefers-reduced-motion: reduce) {
+  .throbber,
+  .bar[data-fill="animate"]::after {
+    animation: none;
+  }
+
+  .hold {
+    display: none;
+  }
+}
+
+/* ------------------------------------------------------- editorial layer */
+
+/* A short accent rule above every section heading. Cheap, and it does more
+   for the page's shape than any amount of colour would. */
+.at-content h2 {
+  margin-block-start: 2.75rem;
+  padding-block-start: 1.1rem;
+  border-block-start: 2px solid var(--at-primary);
+}
+
+.at-content h2:first-child {
+  margin-block-start: 0;
+}
+
+/* Dates, weights, week numbers and durations all want to line up in a
+   column. The course counts things; the figures should behave. */
+.at-content :is(small, time, td, th),
+.clause-weeks,
+.course-code {
+  font-variant-numeric: tabular-nums;
+}
+
+/* --------------------------------------------------------------- cards */
+
+/* The theme's card is a rounded, shadowed tile. Squared off, reduced to a
+   hairline and given an accent edge that arrives on hover, it stops reading
+   as a starter component and starts reading as an index. */
+.at-card {
+  position: relative;
+  border: 1px solid var(--at-divider);
+  border-radius: 0;
+  box-shadow: none;
+  transition: border-color 120ms ease;
+}
+
+.at-card::before {
+  position: absolute;
+  inset-block: -1px;
+  inset-inline-start: -1px;
+  content: "";
+  inline-size: 3px;
+  background: var(--at-primary);
+  transform: scaleY(0);
+  transform-origin: top;
+  transition: transform 160ms cubic-bezier(0.2, 0.7, 0.3, 1);
+}
+
+a.at-card:hover,
+a.at-card:focus-within {
+  border-color: var(--at-border);
+}
+
+a.at-card:hover::before,
+a.at-card:focus-within::before {
+  transform: scaleY(1);
+}
+
+.at-card-title {
+  letter-spacing: -0.012em;
+}
+
+/* The trailing `<small>` line on a session or assessment card is the week
+   and the date. Mono it, so the grid gains a column of figures down its
+   edge instead of a second line of prose. */
+.at-card-body > p:last-child > small {
+  color: var(--at-text-muted);
+  font-family: var(--at-font-mono);
+  font-size: var(--at-font-size-xs);
+  letter-spacing: 0.04em;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .at-card,
+  .at-card::before {
+    transition: none;
+  }
+}

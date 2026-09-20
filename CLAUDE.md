@@ -99,11 +99,21 @@ These are not negotiable. If a change would break one, stop and say so instead
 of working around it.
 
 - **The platform is fixed and the course is mine.** The Slop identity
-  (`astro-theme-slop`, the palette, the `src/site-config.ts` branding), the
-  four content collections and their keys, the build pipeline in
+  (`astro-theme-slop` and its lockups, the `src/site-config.ts` branding
+  wiring), the four content collections and their keys, the build pipeline in
   `astro.config.ts` and the generated API stay as they arrived. Adding is
   always allowed: a new collection, a page outside the collections, a component
   the theme lacks. Changing the fixed parts is not.
+- **The palette is the course's, not the platform's.** This rule used to read
+  the other way and was changed on purpose. The README hands over "the visual
+  treatment" in the same sentence that fixes the platform, and the theme
+  documents `--at-primary` as its re-branding API, deriving every surface,
+  border and text colour from it through oklch relative colour. So the palette
+  is a design decision the course owns. `src/styles/wait.css` re-points that
+  token and nothing else: `astro.config.ts` still loads
+  `astro-theme-slop/slop.css` and `src/site-config.ts` still spreads
+  `slopBranding`, both byte for byte as they arrived. The crest stays gold and
+  the accent stays in its family, so the lockup still belongs on the page.
 - **The course code keeps `034`.** It was allocated to this repo and no other
   course in the cohort has it. Only the first digit is mine, and `level` in
   `src/course-config.ts` must equal it or the schema refuses to parse.
