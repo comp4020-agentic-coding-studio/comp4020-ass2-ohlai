@@ -18,7 +18,15 @@ export interface ApiNode {
 }
 
 export interface CourseApi {
-  course: { code: string; level: number; startDate: string; endDate: string };
+  course: {
+    code: string;
+    title: string;
+    session: string;
+    year: number;
+    level: number;
+    startDate: string;
+    endDate: string;
+  };
   nodes: ApiNode[];
 }
 
