@@ -353,3 +353,17 @@ experience is worth more than its middle. That makes the policy arguable
 rather than merely announced, which is the only defensible reason to have it.
 Checked by reading week 11 and week 12 together to confirm the policy is
 stated once as fact and once as a pointer, and never as a joke.
+
+## 82d9159 feat: the four assessment briefs
+
+Four briefs, and the decision was in the marking models. The obvious weighting
+puts the artefact first, because the artefact is what gets handed in and what
+is easiest to mark. I inverted it on the two that matter: the Intervention
+gives 45 of its marks to the justification, and the Studio Presentation gives
+60 to the defence rather than the presentation. The third clause of the thesis
+is only assessable through what a student can say about who their work
+manages, so a rubric that rewards the redesign and tolerates a vague
+justification would test the first two clauses and quietly drop the third.
+Checked by running the assessment test, which confirms the four weights total
+100, all four due dates resolve to teaching weeks, and each page agrees with
+COURSE.md on weight, date and clause.
