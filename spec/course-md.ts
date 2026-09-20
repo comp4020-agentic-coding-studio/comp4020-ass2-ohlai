@@ -31,6 +31,9 @@ export interface AssessmentEntry {
   tests: string[];
 }
 
+/** A `### Subsection` of `## Policy`, as the `- key: value` lines under it. */
+export type PolicyGroup = Record<string, string>;
+
 export interface CourseBible {
   raw: string;
   thesis: string;
@@ -38,6 +41,7 @@ export interface CourseBible {
   calendar: CalendarEntry[];
   weeks: WeekEntry[];
   assessment: AssessmentEntry[];
+  policy: Record<string, PolicyGroup>;
   voice: string[];
 }
 
@@ -47,6 +51,7 @@ const HEADINGS = {
   calendar: "Teaching calendar",
   weeks: "Weeks",
   assessment: "Assessment",
+  policy: "Policy",
   voice: "Voice",
 } as const;
 
@@ -133,6 +138,36 @@ function parseAssessment(raw: string): AssessmentEntry[] {
   return items;
 }
 
+/**
+ * The `## Policy` section, as `{ "Late work": { penalty: "5% ..." }, ... }`.
+ *
+ * These numbers exist so pages can render them instead of retyping them.
+ * `spec/provenance.test.ts` treats a figure in prose as a claim that owes
+ * provenance, and it is right to: a penalty rate restated by hand on a page
+ * is a number that can drift from the one the course actually set. Reading
+ * it from here means the page and the bible cannot disagree.
+ */
+function parsePolicy(raw: string): Record<string, PolicyGroup> {
+  const groups: Record<string, PolicyGroup> = {};
+  let current: PolicyGroup | undefined;
+  for (const line of sectionBody(raw, HEADINGS.policy)) {
+    const heading = /^###\s+(.+?)\s*$/.exec(line);
+    if (heading) {
+      current = {};
+      groups[heading[1]!] = current;
+      continue;
+    }
+    if (!current) continue;
+    // Policy keys are phrases, not identifiers: "up to 5 days" reads better
+    // in the bible than "shortExtension" and this is the only thing that
+    // parses them. Only `- ` lines are considered, so prose in the section
+    // that happens to contain a colon is never mistaken for a field.
+    const field = /^-\s+([^:]+?):\s*(.+?)\s*$/.exec(line);
+    if (field) current[field[1]!.trim()] = field[2]!;
+  }
+  return groups;
+}
+
 function parseVoice(raw: string): string[] {
   return sectionBody(raw, HEADINGS.voice)
     .filter((line) => /^-\s+\S/.test(line))
@@ -148,6 +183,7 @@ export function readCourseBible(path = resolve("COURSE.md")): CourseBible {
     calendar: parseCalendar(raw),
     weeks: parseWeeks(raw),
     assessment: parseAssessment(raw),
+    policy: parsePolicy(raw),
     voice: parseVoice(raw),
   };
 }

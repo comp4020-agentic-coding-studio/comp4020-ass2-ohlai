@@ -1,0 +1,45 @@
+---
+// The policy figures, rendered from COURSE.md's `## Policy` section.
+//
+// Written as prose first, which `spec/provenance.test.ts` immediately failed:
+// a "5%" typed onto a page is a figure with nothing behind it, and the check
+// says so. The check was right and the prose was in the wrong place. Its own
+// header comment asks for exactly this, that a weight or a late penalty
+// render from data rather than be restated by hand, so the number now comes
+// out of the bible and the page cannot drift from it.
+import { readCourseBible } from "../../spec/course-md";
+
+interface Props {
+  /** The `### Subsection` of `## Policy` to render. */
+  group: string;
+  /** Field name to row label, in the order the rows should appear. */
+  rows: Record<string, string>;
+}
+
+const { group, rows } = Astro.props;
+const { policy } = readCourseBible();
+const fields = policy[group];
+
+if (!fields) {
+  throw new Error(
+    `COURSE.md's "## Policy" has no "### ${group}". The section is the parse ` +
+      `contract; spec/course-md.ts defines it.`,
+  );
+}
+
+const missing = Object.keys(rows).filter((key) => !fields[key]);
+if (missing.length > 0) {
+  throw new Error(`COURSE.md's "### ${group}" has no ${missing.join(", ")}`);
+}
+---
+
+<dl class="policy">
+  {
+    Object.entries(rows).map(([key, label]) => (
+      <div class="policy-row">
+        <dt>{label}</dt>
+        <dd>{fields[key]}</dd>
+      </div>
+    ))
+  }
+</dl>

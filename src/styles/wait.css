@@ -403,3 +403,41 @@ a.at-card:focus-within::before {
     transition: none;
   }
 }
+
+/* ------------------------------------------------------------ policy rows */
+
+/* Policy figures, rendered from COURSE.md rather than typed into the page.
+   Ruled rows with the value in mono, so a number the course set about itself
+   looks like a number and not like prose. */
+.policy {
+  margin-block: 1.5rem 2rem;
+  border-block-start: 1px solid var(--wait-rule);
+}
+
+.policy-row {
+  display: grid;
+  grid-template-columns: minmax(9rem, 14rem) 1fr;
+  gap: 0.25rem 1.5rem;
+  border-block-end: 1px solid var(--at-divider);
+  padding-block: 0.8rem;
+}
+
+.policy-row > dt {
+  color: var(--at-text-secondary);
+  font-family: var(--at-font-mono);
+  font-size: var(--at-font-size-xs);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.policy-row > dd {
+  margin: 0;
+  color: var(--at-heading);
+  font-variant-numeric: tabular-nums;
+}
+
+@media (width < 34rem) {
+  .policy-row {
+    grid-template-columns: 1fr;
+  }
+}

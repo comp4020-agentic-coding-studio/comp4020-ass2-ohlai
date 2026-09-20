@@ -6,6 +6,8 @@ description:
   and getting help.
 ---
 
+import PolicyTable from "../../components/PolicyTable.astro";
+
 # Policies and support
 
 ## When marks are released
@@ -25,16 +27,38 @@ not negotiable individually, because a queue that moves for whoever asks is
 the failure week 7 is about.
 
 If you need a mark released earlier for a documented reason, such as a
-scholarship or a visa deadline, email the convener with the deadline and
+scholarship or a visa deadline, email the convenor with the deadline and
 evidence of it. That exception is granted on the document rather than on the
 request.
 
-## Late work and extensions
+## Late work
 
-Not set yet. The late penalty, the extension process and the evidence
-required for one are course policy and are not in `COURSE.md`, so nothing is
-stated here rather than something plausible. They are logged as an open
-question against this page and will be filled in before the course runs.
+<PolicyTable
+  group="Late work"
+  rows={{ penalty: "Penalty", floor: "Floor", scope: "Scope" }}
+/>
+
+A day is a whole day from the due time, so an hour late and twenty-three
+hours late cost the same. Once an item has reached the floor, the
+conversation to have is about the course rather than the piece.
+
+## Extensions
+
+Ask before the due time.
+
+<PolicyTable
+  group="Extensions"
+  rows={{
+    "up to 5 days": "Short extension",
+    "beyond 5 days": "Longer extension",
+    "decision turnaround": "You hear back within",
+  }}
+/>
+
+The turnaround is published because it is the course's own wait. This course
+does not get to argue that delay is designed and then leave you refreshing
+your inbox for an answer it has already reached. If the turnaround passes
+without a decision, send the email again and say it is the second one.
 
 The one exception already decided is above. If a documented external deadline
 requires your final mark before week 12, that is granted on the document.
@@ -48,5 +72,14 @@ cannot be argued into being interesting.
 
 ## Getting help
 
-Ask in the workshop first, because most questions are shared. For anything
-that does not fit a workshop, contact the teaching team.
+Ask in the workshop first, because most questions are shared and answering
+one in the room answers it for everybody who had it.
+
+For anything that does not fit a workshop, there is consultation. The
+convenor is available Wednesdays from 14:00 to 15:30 during teaching weeks.
+The tutor stays for thirty minutes after each Thursday workshop, in the
+workshop room.
+
+Both are drop-in. Neither takes bookings, because a booking system is a queue
+with an admission test on the front of it, and week 7 is about what that
+does to the people who fail the test.

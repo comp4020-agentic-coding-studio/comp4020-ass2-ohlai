@@ -451,3 +451,51 @@ same bug again the next time either file is edited alone. Checked by putting
 the old title back into the record, confirming the check failed naming both
 strings, and restoring. Also required widening `CourseApi`, which had declared
 four fields of a record that publishes ten.
+
+## 3b8aff5 feat: the course's own visual treatment, and the thesis on the page that promised it
+
+Three things that had to land together, because the home page imports all
+three and this repo does not commit a state that fails `check`.
+
+The thesis was the real bug. The week 1 deck tells a reader the rest of the
+line arrives later and to read it on the front page, and week 12 defends
+interventions against "the three clauses on the front page". Neither was
+true: the front page had the course description and no thesis, and T1, T2 and
+T3 appeared nowhere a student could see them. The obvious fix was to paste
+the line into `index.astro`. I went the other way and had `Thesis.astro` read
+it out of `COURSE.md` at build time, because a pasted copy is one careless
+edit away from disagreeing with the bible, and `coherence.test.ts` only holds
+the bible's own internal consistency. Each clause lists the weeks that
+declared `serves:` for it, which is what turns an internal id into something
+a reader can follow. Checked by reading the rendered clause lists against the
+frontmatter: T1 six weeks, T2 eight, T3 five.
+
+The visual treatment: the theme derives every surface, border and text colour
+from `--at-primary` through oklch relative colour, so re-pointing that single
+token moves the whole site at once instead of leaving a patchwork. The rest
+is square corners, accent rules above section headings, monospace labels,
+tabular figures, and cards cut back to a hairline. The rounded shadowed card
+is most of what reads as starter theme.
+
+This contradicted a hard constraint in `CLAUDE.md` saying the palette is
+fixed, so I stopped and raised it rather than doing it quietly. The rule was
+changed on purpose and now says the opposite, with the argument in the rule:
+the README hands over "the visual treatment" in the same sentence that fixes
+the platform, and the theme documents `--at-primary` as its re-branding API.
+`astro.config.ts` and `src/site-config.ts` are untouched, so the wiring the
+README actually fixes is still as it arrived.
+
+`HoldPattern` is the site doing what the course describes rather than a gag:
+an indeterminate throbber over a determinate bar that stops one segment
+short, for a delay the copy admits is artificial. Weeks 3, 4 and 10. The
+constraint I held it to is that it must not be the thing the course
+criticises, so it is home page only, once per session, skippable three ways,
+and `prefers-reduced-motion` never sets the class that shows it. The page
+content stays in the DOM throughout, which is why axe and the link checker
+still see all 38 pages.
+
+The first build failed on `/sessions/week-07/ escapes base`, which is the
+trap `CLAUDE.md` already documents: a hand-written root-absolute href in an
+`.astro` file skips the base path. Fixed with the theme's `withBase`. The
+rule was written down and I still walked into it, which is an argument for
+the check rather than for the rule.

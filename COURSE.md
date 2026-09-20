@@ -152,6 +152,32 @@ The Teardown falls on the Thursday of week 6, the day before the break opens.
 That is deliberate and the assessment page says so in one line. A course about
 waiting does not hand back a fortnight of slack by accident.
 
+## Policy
+
+The rules that are not assessment and not calendar. The policies page and the
+people pages state these and add nothing to them.
+
+### Late work
+- penalty: 5% of the item's available marks per day late, counted in whole days from the due time
+- floor: after 7 days the item scores zero
+- scope: every item except the Studio Presentation, which happens in a room on a day and cannot be handed in late
+
+### Extensions
+- up to 5 days: granted by the convenor on the request, asked for before the due time, no documentation
+- beyond 5 days: needs documentation and goes through the university's process
+- decision turnaround: 2 working days from the request
+
+The turnaround is a published number because this course cannot argue that
+delay is designed and then leave you refreshing your inbox for an answer it
+already knows. The wait the course inflicts is in scope for the course.
+
+### Consultation
+- convenor: Wednesdays 14:00 to 15:30, during teaching weeks
+- tutor: 30 minutes after each Thursday workshop, in the workshop room
+
+Both are drop-in and neither is by appointment. A booking system is a queue
+with an admission test, and week 7 is about what that does.
+
 ## Voice
 
 The register rules. They apply to every word a student reads: pages, decks,

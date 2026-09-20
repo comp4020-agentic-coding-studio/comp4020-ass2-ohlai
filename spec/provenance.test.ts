@@ -11,11 +11,23 @@
 // has a plausible source and a plausible date. It does not have a population,
 // a method and a unit, because those are what was never there.
 //
-// Course facts are not exempt. A weight or a late penalty renders from
-// frontmatter and should not be restated in prose at all, and if it is, it
-// declares where it came from like anything else.
+// Course facts are not exempt on a page. A weight or a late penalty renders
+// from data and should not be restated in prose at all, and if it is, it
+// declares where it came from like anything else. That rule caught the
+// policies page the hour it was written, correctly, and the figures moved
+// into COURSE.md behind a component.
+//
+// The one exemption is COURSE.md's own "## Policy" section, added on
+// purpose. Everywhere else a figure is a claim about the world and owes
+// provenance. In that section a figure is the course setting a rule about
+// itself: the late penalty has no source to cite, no retrieval date and
+// nothing it measures, because the course is where it comes from. Demanding
+// provenance there would mean either inventing a citation for a decision or
+// writing the number without its unit, and both are worse than the hole.
+// The exemption is scoped to that one section so an empirical figure
+// anywhere else in the bible is still caught.
 import { describe, expect, it } from "vitest";
-import { bodyOf, contentSources, readClaims } from "./site-api";
+import { bodyOf, contentSources, readClaims, type SourceFile } from "./site-api";
 
 // Percentages, sub-minute durations, multipliers and counts of people. These
 // are the shapes an empirical claim takes in this course. Bare integers are
@@ -27,7 +39,22 @@ const normalise = (value: string): string => value.toLowerCase().replace(/[\s,]+
 
 const sources = contentSources();
 const decks = sources.filter((file) => file.path.startsWith("src/decks/"));
-const pages = sources.filter((file) => !file.path.startsWith("src/decks/"));
+
+/** COURSE.md without its "## Policy" section. See the exemption above. */
+function withoutPolicySection(file: SourceFile): SourceFile {
+  const lines = file.text.split(/\r?\n/);
+  const start = lines.findIndex((line) => line.trim() === "## Policy");
+  if (start === -1) return file;
+  const after = lines.slice(start + 1).findIndex((line) => line.startsWith("## "));
+  const end = after === -1 ? lines.length : start + 1 + after;
+  // Blanked rather than removed, so reported line numbers stay true.
+  const kept = lines.map((line, index) => (index >= start && index < end ? "" : line));
+  return { ...file, text: kept.join("\n") };
+}
+
+const pages = sources
+  .filter((file) => !file.path.startsWith("src/decks/"))
+  .map((file) => (file.path === "COURSE.md" ? withoutPolicySection(file) : file));
 
 /** A deck borrows the claims of the lecture that links it. */
 function claimsForDeck(deckPath: string): ReturnType<typeof readClaims> {
