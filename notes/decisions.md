@@ -269,3 +269,31 @@ memory. `measures` is not required, because the claim a citation makes is that
 the work exists as described, which the record either shows or does not.
 Checked by running the check against the template's readingless sessions,
 where it correctly reported the absence rather than passing on an empty list.
+
+## 8a81267 fix: an artefact name that straddles a line break still matches
+
+A bug in my own check, found the first time real content met it. The check
+compared `extra:` against the block text with newlines intact, so "the key
+repeat delay slider" failed whenever markdown wrapped the line after "delay".
+The obvious fix at that moment was to rewrite the sentence so the name fell on
+one line, which takes ten seconds and leaves the trap for the next person. I
+fixed the check instead, flattening whitespace on both sides before comparing,
+because a check that makes line wrapping load bearing will be worked around
+rather than obeyed. Checked by confirming the week 2 block passed afterwards
+with the wrap still in it, and that the three other assertions on the same
+field still failed correctly when I pointed `extra:` at a phrase the block
+does not contain.
+
+## c26baa3 feat: weeks 1 and 2, the perception gap and the thresholds it became
+
+The first content, and the decision was how to divide a week between its
+lecture page and its session page. The obvious split is that the lecture
+summarises and the session elaborates, which is what the template's
+placeholder text suggests and which produces two pages saying the same thing
+at two lengths. I gave them different jobs instead: the lecture page states
+the argument the lecture makes, and the session page carries the work, the
+readings and the outcomes. Neither restates the other, and a reader who opens
+only one of them still gets something whole. Checked by reading the four pages
+end to end looking for a sentence that appears in substance on both, and by
+running distinctness, which compares the twelve weeks against each other
+rather than the pages within a week.
