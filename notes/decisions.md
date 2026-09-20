@@ -426,3 +426,28 @@ which means the most read page on the site was instructions to myself. The
 "Who it is for" section now rules people out in a sentence, including the
 people who want a performance optimisation course, which is the wrong reason
 to enrol in this one.
+
+## 7b254dc feat: the course is called Wait: The Design of Delay
+
+Changed the record's title, and found that it had never agreed with COURSE.md.
+The bible's heading said "Wait: The Design of Delay" from its first commit and
+the record said "Your Call Is Important To Us" from its first commit, so which
+name a reader saw depended on which file the page they landed on happened to
+read. The second decision was the heading. Keeping the template's
+`code: title` pattern would have rendered "SLOP2034: Wait: The Design of
+Delay", two colons deep, so the heading is now the title alone and the code
+moved to its own line with the session and year. The code is allocated and has
+to be visible, but it is not the name of the course. Checked by rebuilding and
+reading the home page heading, and by the new check below.
+
+## bba1b4a test: the course has one title
+
+Wrote the check for the divergence I had just fixed by hand, rather than
+fixing it and moving on, because nothing in twenty-odd commits of a green
+suite had noticed a course with two names. The obvious alternative was to
+treat it as a one-off typo, which is what it looks like from the inside. It is
+not: it is two sources of truth for the same fact, and that shape produces the
+same bug again the next time either file is edited alone. Checked by putting
+the old title back into the record, confirming the check failed naming both
+strings, and restoring. Also required widening `CourseApi`, which had declared
+four fields of a record that publishes ten.
