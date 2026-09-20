@@ -1,0 +1,84 @@
+---
+// A progress bar that behaves like the ones week 4 is about.
+//
+// It climbs unevenly, stalls, reaches 99%, sits there long enough for you to
+// believe it, and then falls back to somewhere lower and starts again. The
+// falls get worse before the cycle resets. Nothing about it is a fixed
+// animation: the speeds, the stalls, the ceilings and the floors are drawn
+// fresh each run, so two people watching it never see the same bar, and
+// neither does one person watching it twice.
+//
+// It replaces a static picture in the header. A course whose fourth week is
+// called Ninety-Nine Percent can illustrate itself with the thing rather
+// than with a drawing of the thing, and unlike the site's other waits this
+// one is ambient: it blocks nothing, it asks for nothing, and you can watch
+// it for as long as you like or ignore it completely.
+//
+// Accessibility. The moving parts are aria-hidden, because a percentage
+// that changes every frame inside a live region is a screen reader reading
+// numbers forever. The figcaption carries the meaning in words instead, and
+// it is the same meaning: the bar is lying. Under prefers-reduced-motion the
+// script never starts, and what is left is a static bar at 99%, which is the
+// joke holding still.
+interface Props {
+  /** Rendered into the figcaption under the bar. */
+  caption: string;
+}
+
+const { caption } = Astro.props;
+---
+
+<figure class="lie">
+  <div class="lie-panel" aria-hidden="true">
+    <p class="lie-label">
+      <span class="lie-dot"></span>
+      <span data-lie-label>Transferring</span>
+    </p>
+
+    <div class="lie-track">
+      <div class="lie-fill" data-lie-fill style="inline-size: 99%"></div>
+    </div>
+
+    <p class="lie-readout">
+      <span class="lie-pct" data-lie-pct>99</span><span class="lie-unit">%</span>
+    </p>
+  </div>
+
+  <figcaption>{caption}</figcaption>
+</figure>
+
+<script>
+  import { LyingProgress } from "../lib/lying-progress";
+
+  function start(root: HTMLElement): void {
+    const fill = root.querySelector<HTMLElement>("[data-lie-fill]");
+    const pct = root.querySelector<HTMLElement>("[data-lie-pct]");
+    const label = root.querySelector<HTMLElement>("[data-lie-label]");
+    if (!fill || !pct || !label) return;
+
+    const bar = new LyingProgress();
+    let last = performance.now();
+
+    const frame = (now: number): void => {
+      // Clamped, so a tab that was backgrounded for a minute does not come
+      // back and teleport the bar with one enormous timestep.
+      bar.advance(Math.min((now - last) / 1000, 0.05));
+      last = now;
+
+      const shown = String(Math.floor(bar.value));
+      fill.style.inlineSize = `${bar.value.toFixed(1)}%`;
+      if (pct.textContent !== shown) pct.textContent = shown;
+      if (label.textContent !== bar.label) label.textContent = bar.label;
+
+      requestAnimationFrame(frame);
+    };
+
+    requestAnimationFrame(frame);
+  }
+
+  // Under reduced motion the script never starts and the markup's static 99%
+  // is what stays on screen, which is the joke holding still.
+  if (!window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+    for (const node of document.querySelectorAll<HTMLElement>(".lie")) start(node);
+  }
+</script>

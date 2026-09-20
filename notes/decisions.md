@@ -611,3 +611,45 @@ padding was enough to collapse it to one column and stack five facts.
 
 The header is still 1019px on a phone, which is a header carrying artwork, a
 title, a description, two links and five facts. Left as is.
+
+## b969e42 and the header's bar
+
+Three fixes and one piece of engineering worth recording.
+
+The header was off centre against the page beneath it, which measuring
+explained and looking never would have. The theme's content column is not
+centred: `--at-content-inset` pushes it right, and `body::after` draws a 1px
+accent rule down the whole page at that inset to mark it. A header centred in
+the viewport therefore started its title 225px left of every heading under
+it. The band now borrows the body's own track list with
+`grid-template-columns: inherit` and runs its children content-start to
+full-end, so left edges agree at 316px and the width stays on the right where
+the bar wants it. The same rule was drawing straight through the band, so the
+header takes `position: relative; z-index: 1`: the rule marks the content
+column and the header is not in it.
+
+The static artwork became an actual progress bar. It climbs unevenly, stalls,
+reaches 99, sits there long enough to be believed, then falls to around 60,
+climbs, falls to around 30, falls to around 10, and starts over. Drawn fresh
+every run.
+
+The engineering: `requestAnimationFrame` does not run in a tab that is not
+painting, and the preview pane was not painting, so the bar could not be
+watched at all. "It looks right" was not available as a check. The state
+machine moved out of the component into `src/lib/lying-progress.ts` behind an
+injected clock and an injected random source, and
+`spec/lying-progress.test.ts` drives it at a fixed timestep with a seeded
+generator across four seeds. It holds the brief rather than the
+implementation: stays within 0 and 100, reaches 99 before the first fall,
+holds the top at least four seconds before that fall, falls further each time
+with the third below 20, and produces different output from different seeds.
+A bar that quietly stopped falling, or replayed one fixed animation, would
+still look fine.
+
+One thing that reads as a bug and is not: the label says "Almost done" while
+the bar sits at 55%. The label is a claim and the claim does not track the
+number, which is the entire subject of week 4. It is in the code as a
+decision, not an accident.
+
+`hero-home.avif` is deleted and its generator with it. It was a drawing of a
+progress bar stopped at 99% and the page now has one that really does.

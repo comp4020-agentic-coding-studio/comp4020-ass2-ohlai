@@ -472,20 +472,38 @@ a.at-card:focus-within::before {
 /* The band under the nav: the record, on one line, in the register the rest
    of the site uses for figures. */
 /* The theme lays <body> out as a named-line grid: full-start, inset-start,
-   content-start, content-end, full-end. Slotted content lands in `content`
-   by default, which put an 828px column around the header and wrapped the
-   title onto four lines. The nav spans `full`, and so does this. Its own
-   max-inline-size and gutter then do the centring. */
+   content-start, content-end, full-end. Slotted content lands in `content`,
+   which put an 828px column around the header and wrapped the title onto
+   four lines. The band spans `full` like the nav does, and then borrows the
+   same track list so its contents can line up with the page.
+   `grid-template-columns: inherit` copies the computed template, named lines
+   and all, and the percentages resolve against the same width because the
+   band is exactly as wide as <body>.
+
+   The inner blocks run content-start to full-end rather than sitting in a
+   centred box of their own. Centring them looked wrong for a reason that
+   only measuring showed: the theme's content column is not centred either,
+   it is pushed right by --at-content-inset, so a centred header started its
+   title 225px to the left of every heading beneath it. Left edges now agree
+   and the band keeps its width on the right, where the artwork wants it.
+
+   position/z-index put the band above body::after, the 1px accent rule the
+   theme runs the full height of the page at inset-start. That rule marks the
+   content column, and it was drawing straight through a full-bleed header
+   that is not in the content column. */
 .course-head {
+  position: relative;
+  z-index: 1;
+  display: grid;
   grid-column: full;
+  grid-template-columns: inherit;
   border-block-end: 1px solid var(--at-divider);
   background: var(--at-bg-alt);
 }
 
-.course-head-strip,
-.course-facts {
-  margin-inline: auto;
-  max-inline-size: 72rem;
+.course-head > * {
+  grid-column: content-start / full-end;
+  padding-inline-end: var(--at-gutter, 1.5rem);
 }
 
 .course-head-strip {
@@ -495,7 +513,7 @@ a.at-card:focus-within::before {
   justify-content: space-between;
   margin: 0;
   border-block-end: 1px solid var(--at-divider);
-  padding: 0.6rem var(--at-gutter, 1.5rem);
+  padding-block: 0.6rem;
   color: var(--at-text-muted);
   font-family: var(--at-font-mono);
   font-size: var(--at-font-size-xs);
@@ -512,9 +530,7 @@ a.at-card:focus-within::before {
   grid-template-columns: minmax(0, 1.15fr) minmax(0, 1fr);
   gap: 2rem 3rem;
   align-items: center;
-  margin-inline: auto;
-  max-inline-size: 72rem;
-  padding: 1.9rem var(--at-gutter, 1.5rem) 2.1rem;
+  padding-block: 1.9rem 2.1rem;
 }
 
 .course-head-eyebrow {
@@ -601,7 +617,7 @@ a.at-card:focus-within::before {
   gap: 1.1rem 1.75rem;
   margin: 0;
   border-block-start: 1px solid var(--at-divider);
-  padding: 1.25rem var(--at-gutter, 1.5rem) 1.4rem;
+  padding-block: 1.25rem 1.4rem;
 }
 
 .course-fact > dt {
@@ -621,6 +637,13 @@ a.at-card:focus-within::before {
 }
 
 @media (width < 54rem) {
+  /* Below the theme's own 640px step the content inset collapses to zero, so
+     the band's children go back to spanning everything with a plain gutter. */
+  .course-head > * {
+    grid-column: full;
+    padding-inline: var(--at-gutter, 1.5rem);
+  }
+
   .course-head-body {
     grid-template-columns: 1fr;
     padding-block: 1.75rem 2rem;
@@ -678,5 +701,99 @@ a.at-card:focus-within::before {
 @media (prefers-reduced-motion: reduce) {
   .lost-throbber {
     opacity: 0.55;
+  }
+}
+
+/* ------------------------------------------------------- lying progress */
+
+/* The header's bar. A dark panel so it holds the right of the band the way
+   the artwork did, and so the amber reads at full strength. */
+.lie {
+  margin: 0;
+}
+
+.lie-panel {
+  display: grid;
+  gap: 0.85rem;
+  border: 1px solid color-mix(in oklab, var(--at-primary) 30%, transparent);
+  padding: 1.15rem 1.25rem 1.25rem;
+  background: oklch(from var(--at-primary) 16% 0.018 h);
+}
+
+.lie-label {
+  display: flex;
+  gap: 0.55rem;
+  align-items: center;
+  margin: 0;
+  color: color-mix(in oklab, white 72%, var(--at-primary));
+  font-family: var(--at-font-mono);
+  font-size: var(--at-font-size-xs);
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.lie-dot {
+  flex: none;
+  inline-size: 7px;
+  block-size: 7px;
+  border-radius: 50%;
+  background: var(--at-primary);
+  animation: lie-pulse 1.6s ease-in-out infinite;
+}
+
+@keyframes lie-pulse {
+  50% {
+    opacity: 0.25;
+  }
+}
+
+.lie-track {
+  block-size: 10px;
+  overflow: hidden;
+  background: color-mix(in oklab, white 14%, transparent);
+}
+
+.lie-fill {
+  block-size: 100%;
+  background: linear-gradient(
+    90deg,
+    var(--at-primary),
+    color-mix(in oklab, var(--at-primary) 55%, white)
+  );
+}
+
+.lie-readout {
+  display: flex;
+  gap: 0.15rem;
+  align-items: baseline;
+  margin: 0;
+  color: color-mix(in oklab, white 92%, var(--at-primary));
+  font-family: var(--at-font-mono);
+  font-variant-numeric: tabular-nums;
+  line-height: 1;
+}
+
+.lie-pct {
+  font-size: 2.6rem;
+  /* The digits must not shuffle the layout as they change. */
+  min-inline-size: 3ch;
+  text-align: end;
+}
+
+.lie-unit {
+  color: color-mix(in oklab, white 55%, var(--at-primary));
+  font-size: 1.1rem;
+}
+
+.lie > figcaption {
+  margin-block-start: 0.7rem;
+  color: var(--at-text-muted);
+  font-size: var(--at-font-size-xs);
+  line-height: 1.55;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .lie-dot {
+    animation: none;
   }
 }

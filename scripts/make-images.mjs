@@ -1,4 +1,4 @@
-// Generates the site's two images from SVG sources in this file.
+// Generates the site's social card from the SVG source in this file.
 //
 // The starter shipped four placeholder images and `pnpm check:evidence`
 // fails while any of them is still byte-for-byte the original. They could
@@ -6,9 +6,14 @@
 // authored should not illustrate itself with pictures nobody chose. These
 // are drawn from the course's own subject matter instead:
 //
-//   hero      a determinate bar stopped at 99% over a queue of seven
-//             figures, which is weeks 4 and 7 in one frame
 //   card      the social card, an indeterminate arc over the course code
+//
+// The header's artwork is not here any more. It was a drawing of a progress
+// bar stopped at 99%, and it is now an actual progress bar that actually
+// stops at 99% and then falls over: src/components/LyingProgress.astro, with
+// its state machine in src/lib/lying-progress.ts. A course whose fourth week
+// is called Ninety-Nine Percent should illustrate itself with the thing and
+// not with a picture of the thing.
 //
 // The two staff portraits are not generated: they are gone. The first
 // attempt drew a face and produced a smiley over a pair of shoulders, and
@@ -34,72 +39,6 @@ const AMBER = "#9f5b17";
 const AMBER_LIGHT = "#c68a3c";
 const INK = "#1a130d";
 const BONE = "#fbf8f4";
-
-/** A standing figure: head and shoulders, drawn as one path. */
-const figure = (x, y, scale, fill, opacity = 1) => `
-  <g transform="translate(${x} ${y}) scale(${scale})" fill="${fill}" opacity="${opacity}">
-    <circle cx="0" cy="-58" r="26" />
-    <path d="M -30 0 a 30 42 0 0 1 60 0 L 30 66 L -30 66 Z" />
-  </g>`;
-
-/** A figure's extent below its baseline, so a queue can sit on a frame edge. */
-const FIGURE_DEPTH = 66;
-
-/** The queue: seven figures, evenly spaced, the one at the head picked out. */
-const queue = (baseline, width, headFill, tailFill, scale = 1) => {
-  const count = 7;
-  const gap = width / (count + 1);
-  return Array.from({ length: count }, (_, index) => {
-    const x = gap * (index + 1);
-    const isHead = index === 0;
-    // The tail of a queue fades because you cannot see the end of one you
-    // are standing in. The head does not. The floor keeps the last figure
-    // readable: on near black a low alpha bone goes to nothing at all.
-    const opacity = isHead ? 1 : Math.max(0.38, 0.92 - index * 0.09);
-    return figure(x, baseline, scale, isHead ? headFill : tailFill, opacity);
-  }).join("");
-};
-
-// The theme renders the hero as a wide banner and centre-crops whatever it
-// is given. A 16:9 source lost the top third, which is where the first
-// version put the bar: the picture shipped as a row of legs. The source is
-// 4:1 so the crop is close to a no-op, and everything sits inside the middle
-// band in case the ratio shifts on a narrower viewport.
-const heroSvg = (w = 1600, h = 400) => {
-  const trackX = 110;
-  const trackW = w - 220;
-  // The gap has to be visible or the picture does not make the point, and
-  // 1% of this width is four pixels. The bar is drawn in ten segments with
-  // the last one empty, which reads as "nearly done" at a glance and is the
-  // same lie week 4 takes apart.
-  const segments = 10;
-  const segW = trackW / segments;
-  const bars = Array.from({ length: segments }, (_, index) => {
-    const filled = index < segments - 1;
-    return `<rect x="${trackX + index * segW + 4}" y="0" width="${segW - 8}" height="22"
-      fill="${filled ? AMBER_LIGHT : BONE}" opacity="${filled ? 1 : 0.22}" />`;
-  }).join("");
-
-  return `
-<svg xmlns="http://www.w3.org/2000/svg" width="${w}" height="${h}" viewBox="0 0 ${w} ${h}">
-  <rect width="${w}" height="${h}" fill="${INK}" />
-
-  <!-- The bar, stopped one segment short. The empty segment is drawn rather
-       than omitted, because the gap is the part week 4 is about. The offset
-       amber pass underneath is the second riso impression. -->
-  <g transform="translate(0 ${h * 0.2})">
-    <g transform="translate(6 6)" opacity="0.4">${bars}</g>
-    ${bars}
-  </g>
-
-  <!-- The queue, standing on a baseline inside the frame rather than on its
-       edge, so a few pixels of crop at the bottom take nothing away. -->
-  <g transform="translate(5 5)" opacity="0.4">
-    ${queue(h - FIGURE_DEPTH * 0.8, w, AMBER, AMBER, 0.8)}
-  </g>
-  ${queue(h - FIGURE_DEPTH * 0.8, w, AMBER_LIGHT, BONE, 0.8)}
-</svg>`;
-};
 
 const cardSvg = (w = 1200, h = 630) => `
 <svg xmlns="http://www.w3.org/2000/svg" width="${w}" height="${h}" viewBox="0 0 ${w} ${h}">
@@ -140,5 +79,4 @@ const write = async (svg, out, format) => {
   console.log(`wrote ${out}`);
 };
 
-await write(heroSvg(), "src/assets/images/hero-home.avif", "avif");
 await write(cardSvg(), "src/assets/images/card.png", "png");
