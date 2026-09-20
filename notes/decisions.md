@@ -103,3 +103,16 @@ both and names the two weeks involved rather than reporting that a set had the
 wrong size. Checked with a fixture of twelve weekly dates, then by moving week
 5 onto week 4's date and week 9 back to week 7's: the check failed naming
 "week 5 (2027-03-15) does not come after week 4 (2027-03-15)".
+
+## 9da35c1 test: twelve weeks that blur into each other are one week twelve times
+
+The distinctness check. The obvious alternative was exact string comparison,
+which is what uniqueness usually means and is one line. I normalise case and
+punctuation first, because the duplicate this check exists to catch is not
+"names the thing" twice, it is "names the thing" and "Names the thing." in
+week 9, which exact comparison waves through. The reading rule allows exactly
+one shared text between two weeks rather than zero, because a book the course
+returns to in week 2 and again in week 11 is the spine of an argument, and
+banning it would push the author into citing a different edition to get green.
+Checked with two fixture weeks differing only in capitalisation and a full
+stop: both the does: and key-term: checks failed and named the pair.

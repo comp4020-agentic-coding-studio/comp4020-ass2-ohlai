@@ -64,3 +64,55 @@ export function contentSources(): SourceFile[] {
   for (const root of roots) walk(root);
   return files;
 }
+
+export interface DeclaredClaim {
+  text: string;
+  source: string;
+  retrieved: string;
+  measures: string;
+}
+
+/**
+ * Reads the `claims:` list out of a file's frontmatter.
+ *
+ * The generated API drops page bodies and does not reach decks at all, and
+ * the repo has no YAML dependency, so provenance reads the source directly.
+ * The shape is deliberately narrow: a list of items with single line scalar
+ * values. A block scalar is a parse miss, which shows up as an empty field
+ * and fails the check rather than passing silently.
+ */
+export function readClaims(text: string): DeclaredClaim[] {
+  const frontmatter = /^---\r?\n([\s\S]*?)\r?\n---/.exec(text);
+  if (!frontmatter) return [];
+  const lines = frontmatter[1]!.split(/\r?\n/);
+  const start = lines.findIndex((line) => /^claims:\s*$/.test(line));
+  if (start === -1) return [];
+  const unquote = (value: string): string => value.trim().replace(/^["']|["']$/g, "").trim();
+  const claims: DeclaredClaim[] = [];
+  let current: Record<string, string> | undefined;
+  for (const line of lines.slice(start + 1)) {
+    if (/^\S/.test(line)) break;
+    const item = /^\s*-\s+(\w+):\s*(.*)$/.exec(line);
+    if (item) {
+      current = { [item[1]!]: unquote(item[2]!) };
+      claims.push(current as unknown as DeclaredClaim);
+      continue;
+    }
+    const field = /^\s+(\w+):\s*(.*)$/.exec(line);
+    if (field && current) current[field[1]!] = unquote(field[2]!);
+  }
+  return claims.map((claim) => ({
+    text: claim.text ?? "",
+    source: claim.source ?? "",
+    retrieved: claim.retrieved ?? "",
+    measures: claim.measures ?? "",
+  }));
+}
+
+/** Everything after the frontmatter: what a reader actually reads. */
+export function bodyOf(text: string): { body: string; offset: number } {
+  const frontmatter = /^---\r?\n[\s\S]*?\r?\n---\r?\n?/.exec(text);
+  if (!frontmatter) return { body: text, offset: 0 };
+  const consumed = frontmatter[0];
+  return { body: text.slice(consumed.length), offset: consumed.split(/\r?\n/).length - 1 };
+}
