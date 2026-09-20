@@ -297,3 +297,47 @@ only one of them still gets something whole. Checked by reading the four pages
 end to end looking for a sentence that appears in substance on both, and by
 running distinctness, which compares the twelve weeks against each other
 rather than the pages within a week.
+
+## a40f9db feat: weeks 3 to 6, the techniques that act on the gap
+
+Four weeks, and one finding that changed a page. The canonical example for
+occupied time is the airport that moved its baggage claim further from the
+gates, and verification turned up nothing: the story traces to a 2012
+retelling and neither the airport nor the airlines have confirmed it. The
+obvious alternative was to substitute a case that does verify, which would
+have left week 6 looking exactly as intended and quietly disposed of the
+problem. I put the finding on the page instead. A course arguing that
+waiting is designed should be able to say that its own field's favourite
+evidence is a parable, and week 6 now teaches that rather than repeating it.
+Checked by two searches that both came back with no primary source, and by
+confirming the reading list check passes with Norman alone rather than being
+padded back to two.
+
+## 5c64f27 fix: week 5 declared an artefact its block does not name
+
+## f0cb663 fix: week 6 declared an artefact its block does not name
+
+Three of these in a row, so the entry is about the pattern rather than the
+three edits. I was writing `extra:` as a label for the artefact and then
+writing the block in whatever phrasing read best, which meant the two agreed
+in meaning and not in characters. The obvious response after the second one
+was to relax the check to a fuzzy match. I did not, because the exactness is
+what makes the other two assertions on that field work, and a fuzzy match
+would have made "already used in the body" unreliable in both directions.
+The fix was to my process: the artefact name is now chosen after the block
+is written, as a literal substring of it. Checked by the check, which caught
+every one of the three before it shipped.
+
+## bf7977a feat: weeks 7 to 9, where waiting stops being one person's problem
+
+The T3 arc, and the first place the third thesis clause is argued rather than
+asserted. The decision was in week 8, which had to handle the infomercial
+"but wait, there's more" as a withholding technique on the same site where
+that phrase is the title of a recurring block. The obvious move was to let
+the two wink at each other, which is one sentence and is very hard to resist.
+I kept them apart: the workshop paragraph describes the interruption as a
+mechanism with a structure and does not acknowledge the joke at all. The
+running gag survives only because the course never explains it. Checked by
+reading the week 8 page for any sentence that gestures at the block, and by
+confirming the but-wait check still treats week 8's block as an artefact
+unrelated to its body.
