@@ -571,3 +571,43 @@ while keeping `alt`, `title` and `aria-label`, which are copy a reader meets
 and exactly the kind nobody proofreads. A rule that cries wolf on CSS is a
 rule that gets switched off, so the scanner had to get smarter rather than
 narrower.
+
+## 0b4be5a and the header rebuild that followed
+
+Feedback on the first pass: the hold screen was invisible, the throbber and
+the bar existed as CSS and appeared in exactly one place, the thesis was set
+too large for its length, and the header spent a whole screen saying the
+course's name.
+
+The hold screen was working. It is once per session by design and had
+already fired, so it never came back. Worth recording because "it is broken"
+and "it did what you told it to, once" look identical from the outside, and
+a delay nobody can reproduce is a delay nobody can review. No code changed.
+
+The throbber and the bar were the real miss. Building a vocabulary and then
+using it once is decoration with a justification attached. They now carry
+information in three more places: assessment cards draw their weight, so
+four bars say "the Intervention is most of your mark" faster than four
+percentages do; session cards draw week N of twelve, which is the only thing
+that differs down an index of twelve near-identical cards; and the 404 has
+the one throbber on the site that never stops, on the one page where nothing
+is ever going to arrive.
+
+The thesis at 37.8px ran to six lines and read as shouting. It is a step
+above body copy now, with the measure held near 34 characters.
+
+The header was rebuilt against BaseLayout rather than ContentLayout, whose
+only header is a photo with the title laid over it. Three measurements drove
+the work, because the preview pane was still painting blank frames and none
+of this was visible: 833px tall, with the thesis starting at 1076px on a
+900px viewport, so the course's argument was below the fold on the page
+whose job is to make it. The first fix found that the theme lays <body> out
+as a named-line grid and slotted content lands in `content`, an 828px
+column, which wrapped the title onto four lines. `grid-column: full` is what
+the nav already uses. Then the h1 clamp came down and the padding tightened.
+End state: 540px, thesis at 783px, above the fold. On a 390px viewport the
+facts row needed a 7.5rem minimum rather than 9.5rem, because the gutter
+padding was enough to collapse it to one column and stack five facts.
+
+The header is still 1019px on a phone, which is a header carrying artwork, a
+title, a description, two links and five facts. Left as is.

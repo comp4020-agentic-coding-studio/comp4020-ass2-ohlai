@@ -52,7 +52,7 @@
 
   /* A bigger step between h1 and body than the theme ships, so a page has a
      shape at a glance rather than three sizes of the same grey. */
-  --at-font-size-h1: clamp(2.3rem, 1.6rem + 3vw, 3.4rem);
+  --at-font-size-h1: clamp(2rem, 1.5rem + 2vw, 2.9rem);
   --at-font-size-h2: clamp(1.45rem, 1.25rem + 0.9vw, 1.85rem);
   --at-line-height-heading: 1.12;
 
@@ -189,15 +189,20 @@
   text-transform: uppercase;
 }
 
-/* The thesis is set as the largest text on the site. It is the one sentence
-   every other page answers to, so nothing should outrank it visually. */
+/* The thesis is the one sentence every page answers to, so it outranks body
+   copy. It is not a headline, though: at display size it ran to six lines
+   and read as shouting rather than as an argument. Sized to sit a step above
+   the prose and no further, with the measure held near 50 characters so it
+   breaks into three or four lines instead of a wall. */
 .thesis-line {
   margin: 0;
+  max-inline-size: 34ch;
   color: var(--at-heading);
-  font-size: clamp(1.35rem, 1.05rem + 1.5vw, 2.1rem);
+  font-size: clamp(1.1rem, 1rem + 0.5vw, 1.38rem);
   font-weight: 600;
-  line-height: 1.32;
-  text-wrap: balance;
+  line-height: 1.4;
+  letter-spacing: -0.005em;
+  text-wrap: pretty;
 }
 
 .thesis-clauses {
@@ -458,5 +463,220 @@ a.at-card:focus-within::before {
 @media (width < 34rem) {
   .policy-row {
     grid-template-columns: 1fr;
+  }
+}
+
+
+/* ----------------------------------------------------------- course head */
+
+/* The band under the nav: the record, on one line, in the register the rest
+   of the site uses for figures. */
+/* The theme lays <body> out as a named-line grid: full-start, inset-start,
+   content-start, content-end, full-end. Slotted content lands in `content`
+   by default, which put an 828px column around the header and wrapped the
+   title onto four lines. The nav spans `full`, and so does this. Its own
+   max-inline-size and gutter then do the centring. */
+.course-head {
+  grid-column: full;
+  border-block-end: 1px solid var(--at-divider);
+  background: var(--at-bg-alt);
+}
+
+.course-head-strip,
+.course-facts {
+  margin-inline: auto;
+  max-inline-size: 72rem;
+}
+
+.course-head-strip {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.35rem 1.5rem;
+  justify-content: space-between;
+  margin: 0;
+  border-block-end: 1px solid var(--at-divider);
+  padding: 0.6rem var(--at-gutter, 1.5rem);
+  color: var(--at-text-muted);
+  font-family: var(--at-font-mono);
+  font-size: var(--at-font-size-xs);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+.course-head-strip-mid {
+  color: var(--at-primary);
+}
+
+.course-head-body {
+  display: grid;
+  grid-template-columns: minmax(0, 1.15fr) minmax(0, 1fr);
+  gap: 2rem 3rem;
+  align-items: center;
+  margin-inline: auto;
+  max-inline-size: 72rem;
+  padding: 1.9rem var(--at-gutter, 1.5rem) 2.1rem;
+}
+
+.course-head-eyebrow {
+  margin-block: 0 0.75rem;
+  color: var(--at-text-muted);
+  font-family: var(--at-font-mono);
+  font-size: var(--at-font-size-xs);
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.course-head-text > h1 {
+  margin-block: 0 0.9rem;
+  color: var(--at-heading);
+  letter-spacing: -0.02em;
+  text-wrap: balance;
+}
+
+.course-head-lead {
+  margin-block: 0 1.25rem;
+  max-inline-size: 46ch;
+  color: var(--at-text-secondary);
+}
+
+.course-head-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  margin: 0;
+}
+
+.course-head-cta,
+.course-head-link {
+  display: inline-block;
+  border: 1px solid var(--at-primary);
+  padding: 0.55rem 1.1rem;
+  font-size: var(--at-font-size-sm);
+  text-decoration: none;
+}
+
+.course-head-cta {
+  color: var(--at-on-primary);
+  background: var(--at-primary);
+}
+
+.course-head-link {
+  border-color: var(--at-border);
+  color: var(--at-heading);
+}
+
+.course-head-cta:hover,
+.course-head-link:hover {
+  border-color: var(--at-primary);
+  text-decoration: underline;
+}
+
+.course-head-art {
+  margin: 0;
+}
+
+.course-head-art img {
+  display: block;
+  inline-size: 100%;
+  block-size: auto;
+}
+
+.course-head-art figcaption {
+  margin-block-start: 0.6rem;
+  color: var(--at-text-muted);
+  font-family: var(--at-font-mono);
+  font-size: var(--at-font-size-xs);
+  line-height: 1.5;
+}
+
+/* The facts row. Five derived values, none of them typed by hand. It sits
+   inside the header element but reads as its own band, on the page's own
+   background rather than the header's. */
+.course-facts {
+  display: grid;
+  /* 7.5rem, not 9.5: the gutter padding eats enough of a 390px viewport
+     that a 9.5rem minimum collapsed the row to a single column and five
+     stacked facts added 300px to the header on a phone. */
+  grid-template-columns: repeat(auto-fit, minmax(7.5rem, 1fr));
+  gap: 1.1rem 1.75rem;
+  margin: 0;
+  border-block-start: 1px solid var(--at-divider);
+  padding: 1.25rem var(--at-gutter, 1.5rem) 1.4rem;
+}
+
+.course-fact > dt {
+  margin-block-end: 0.3rem;
+  color: var(--at-text-muted);
+  font-family: var(--at-font-mono);
+  font-size: var(--at-font-size-xs);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.course-fact > dd {
+  margin: 0;
+  color: var(--at-heading);
+  font-size: var(--at-font-size-sm);
+  font-variant-numeric: tabular-nums;
+}
+
+@media (width < 54rem) {
+  .course-head-body {
+    grid-template-columns: 1fr;
+    padding-block: 1.75rem 2rem;
+  }
+
+  /* The artwork leads on a phone, where the grid stacks and a picture under
+     two buttons is a picture nobody scrolls to. */
+  .course-head-art {
+    order: -1;
+  }
+}
+
+
+/* ------------------------------------------------------- bars in context */
+
+/* The card bars. Thin, above the meta line, and the only thing that differs
+   down an index of twelve near-identical cards. */
+.week-bar,
+.weight-bar {
+  --bar-height: 2px;
+
+  margin-block: 1rem 0.6rem;
+}
+
+/* A weight bar is a share of one hundred, so it reads against the full
+   width of the card. A week bar is a position in twelve. Same component,
+   two scales, which is the distinction week 4 spends an hour on. */
+.weight-bar {
+  --bar-height: 4px;
+}
+
+/* ------------------------------------------------------------- 404 */
+
+/* The one throbber on the site that never stops, on the one page where
+   nothing is ever going to arrive. */
+.lost {
+  display: flex;
+  gap: 0.9rem;
+  align-items: flex-start;
+  margin-block: 1.5rem 2rem;
+  border-inline-start: 2px solid var(--at-primary);
+  padding-inline-start: 1.1rem;
+  color: var(--at-text-secondary);
+}
+
+.lost-throbber {
+  --throbber-size: 1.35rem;
+  --throbber-weight: 2px;
+
+  margin-block-start: 0.15rem;
+}
+
+/* Reduced motion gets a static ring rather than a spinning one. The page
+   still makes its point; it just stops moving. */
+@media (prefers-reduced-motion: reduce) {
+  .lost-throbber {
+    opacity: 0.55;
   }
 }

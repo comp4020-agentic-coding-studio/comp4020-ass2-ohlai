@@ -1,35 +1,27 @@
 ---
+// The home page uses BaseLayout rather than ContentLayout, because
+// ContentLayout's only header is a full-bleed photo with the title laid over
+// it. That spent a whole screen on a title and a picture and pushed the
+// course's argument below the fold. CourseHeader goes into the hero slot
+// instead, so the band is still edge to edge but carries the record, the
+// teaching pattern and two ways in.
 import Card from "astro-theme-university/components/Card.astro";
 import CardGrid from "astro-theme-university/components/CardGrid.astro";
-import ContentLayout from "astro-theme-university/layouts/ContentLayout.astro";
+import BaseLayout from "astro-theme-university/layouts/BaseLayout.astro";
+import CourseHeader from "../components/CourseHeader.astro";
 import HoldPattern from "../components/HoldPattern.astro";
 import Thesis from "../components/Thesis.astro";
-import heroImage from "../assets/images/hero-home.avif";
 import { courseMeta } from "../course-config";
 import { sessionLabels, siteConfig } from "../site-config";
 import "../styles/wait.css";
 ---
 
-<ContentLayout
-  title={courseMeta.title}
-  description={courseMeta.description}
-  heroImage={heroImage}
-  heroImageAlt="A progress bar of ten segments with nine filled, above a queue of seven figures with the one at the head picked out, in amber on near black"
-  {...siteConfig}
->
+<BaseLayout title={courseMeta.title} description={courseMeta.description} {...siteConfig}>
+  <CourseHeader slot="hero" />
+
   <HoldPattern />
 
-  <p class="course-code">
-    {courseMeta.code}. {courseMeta.session}, {courseMeta.year}.
-  </p>
-
-  <ul class="course-tags" aria-label="Course tags">
-    {courseMeta.tags.map((tag) => <li>{tag}</li>)}
-  </ul>
-
   <Thesis />
-
-  <hr class="queue-rule" />
 
   <h2>What you will do</h2>
   <p>
@@ -57,8 +49,6 @@ import "../styles/wait.css";
     If you want a course on performance optimisation, this is the wrong one.
   </p>
 
-  <hr class="queue-rule" />
-
   <h2>Where to go next</h2>
   <CardGrid columns={2}>
     <Card title={sessionLabels.plural} href="/sessions/">
@@ -74,29 +64,4 @@ import "../styles/wait.css";
       <p>Who teaches the course and how to reach them.</p>
     </Card>
   </CardGrid>
-</ContentLayout>
-
-<style>
-  .course-code {
-    margin-block: 0 1.5rem;
-    color: var(--at-text-secondary);
-    font-variant-numeric: tabular-nums;
-  }
-
-  .course-tags {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 0.5rem;
-    margin-block: 0 2rem;
-    padding: 0;
-    list-style: none;
-  }
-
-  .course-tags li {
-    padding: 0.25rem 0.65rem;
-    border-radius: 999px;
-    color: var(--at-text-secondary);
-    background: var(--at-bg-alt);
-    font-size: 0.9rem;
-  }
-</style>
+</BaseLayout>

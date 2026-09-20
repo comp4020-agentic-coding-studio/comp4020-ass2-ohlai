@@ -1,4 +1,8 @@
 ---
+// The weight of each piece is drawn as well as stated. A course about
+// progress indicators should be willing to use one where it carries real
+// information, and four bars side by side say "the Intervention is most of
+// your mark" faster than four percentages do.
 import { getPublishedCollection } from "astro-course-university/content";
 import Card from "astro-theme-university/components/Card.astro";
 import CardGrid from "astro-theme-university/components/CardGrid.astro";
@@ -14,11 +18,19 @@ const visible = assessments.sort((a, b) => a.data.week - b.data.week);
       <Card headingLevel="h2" title={assessment.data.title} href={`/assessments/${assessment.id}/`}>
         {assessment.data.description && <p>{assessment.data.description}</p>}
         {assessment.data.weight != null && (
-          <p>
-            <small>
-              Due {formatCourseDate(assessment.data.due)} · Weight: {assessment.data.weight}%{assessment.data.draft && " · Draft"}
-            </small>
-          </p>
+          <>
+            <div
+              class="bar weight-bar"
+              role="img"
+              aria-label={`Worth ${assessment.data.weight}% of the course mark`}
+              style={`--bar-value: ${assessment.data.weight}%`}
+            />
+            <p>
+              <small>
+                Due {formatCourseDate(assessment.data.due)} · Weight: {assessment.data.weight}%{assessment.data.draft && " · Draft"}
+              </small>
+            </p>
+          </>
         )}
       </Card>
     ))

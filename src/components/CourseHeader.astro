@@ -1,0 +1,75 @@
+---
+// The home page's header, replacing the theme's full-bleed photo hero.
+//
+// The photo hero gave one screen to a title and a picture, and pushed the
+// course's argument below the fold. This is the same vertical space carrying
+// the code, the teaching period, the teaching pattern, the title, the
+// description, two ways in, and the artwork, which is what a course header
+// is for. The thesis then starts near the top of the page instead of after
+// a scroll.
+//
+// Every value is derived. `courseMeta` owns the record, `COURSE.md` owns the
+// teaching pattern and the assessment, and nothing here is typed by hand.
+import { Image } from "astro:assets";
+import { withBase } from "astro-theme-university/url";
+import heroImage from "../assets/images/hero-home.avif";
+import { courseMeta } from "../course-config";
+import { readCourseBible } from "../../spec/course-md";
+
+const { assessment } = readCourseBible();
+const totalWeight = assessment.reduce((sum, item) => sum + item.weight, 0);
+
+const facts = [
+  { label: "Course", value: courseMeta.code },
+  { label: "Teaching period", value: `${courseMeta.session}, ${courseMeta.year}` },
+  { label: "Level", value: `${courseMeta.level} · undergraduate` },
+  { label: "Teaching", value: "Lecture Tue · Workshop Thu" },
+  { label: "Assessment", value: `${assessment.length} pieces · ${totalWeight}%` },
+];
+---
+
+<header class="course-head">
+  <p class="course-head-strip">
+    <span>{courseMeta.code}</span>
+    <span class="course-head-strip-mid">Twelve weeks · No exam</span>
+    <span>{courseMeta.session} · {courseMeta.year}</span>
+  </p>
+
+  <div class="course-head-body">
+    <div class="course-head-text">
+      <p class="course-head-eyebrow">Slop University · Undergraduate course</p>
+      <h1>{courseMeta.title}</h1>
+      <p class="course-head-lead">{courseMeta.description}</p>
+
+      <p class="course-head-actions">
+        <a class="course-head-cta" href={withBase("/sessions/")}>The twelve weeks</a>
+        <a class="course-head-link" href={withBase("/assessments/")}>What is marked</a>
+      </p>
+    </div>
+
+    <figure class="course-head-art">
+      <Image
+        src={heroImage}
+        alt="A progress bar of ten segments with nine filled, above a queue of seven figures with the one at the head picked out, in amber on near black"
+        widths={[560, 1120]}
+        sizes="(max-width: 60rem) 100vw, 34rem"
+        loading="eager"
+      />
+      <figcaption>Nine tenths done, and a queue that cannot see its own end.</figcaption>
+    </figure>
+  </div>
+
+  {/* Inside the <header> on purpose: the hero slot renders outside <main>,
+      so a <dl> left as a sibling here is page content in no landmark at all,
+      which is what axe's `region` rule is for. */}
+  <dl class="course-facts">
+    {
+      facts.map((fact) => (
+        <div class="course-fact">
+          <dt>{fact.label}</dt>
+          <dd>{fact.value}</dd>
+        </div>
+      ))
+    }
+  </dl>
+</header>
