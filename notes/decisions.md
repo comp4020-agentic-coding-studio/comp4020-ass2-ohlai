@@ -62,3 +62,19 @@ thesis it came from, and nothing notices, which is exactly the drift the check
 exists to catch. Checked by editing `T2` from "a designed component of it" to
 "a designed part of it" and confirming the rejoin test failed with the clause
 named, then restoring and confirming `git diff` was clean.
+
+## ca6dc38 test: the register is a course design decision, not a preference
+
+The voice check, scanning `COURSE.md`, `src/content`, `src/decks` and
+`src/pages`. Two design calls. The first was what to do about `---`, which is
+an em dash stand-in in prose and also a frontmatter delimiter, a deck slide
+break and a table rule. The obvious alternative was to leave `---` out of the
+pattern and catch only real em dashes, which is what a quick version does. I
+went the other way and exempted the structural lines by shape, because the
+spaced double hyphen is the exact substitution someone makes the first time
+this check fails them, and a rule that can be satisfied by typing two hyphens
+is not a rule. The second call was the guard test asserting the scanner found
+files and that `COURSE.md` is among them, which exists because the way a voice
+check really fails is by scanning an empty list and going green. Checked
+against the template's own starter content, which the check caught: eleven
+dashes across eight files and an "in order to" in a staff biography.
