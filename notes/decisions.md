@@ -78,3 +78,17 @@ files and that `COURSE.md` is among them, which exists because the way a voice
 check really fails is by scanning an empty list and going green. Checked
 against the template's own starter content, which the check caught: eleven
 dashes across eight files and an "in order to" in a staff biography.
+
+## 8f4503e test: assessment measures the thesis or it measures nothing
+
+The assessment check. The interesting decision was what "inside a teaching
+week" means, since a due date is a day and a teaching week is a name. The
+obvious alternative was the loose reading the build already has: inside
+`startDate` and `endDate`, which would pass a deadline in a mid-semester break
+or in the gap after the last class. I defined a teaching week as the seven days
+its calendar date opens and required every deadline to fall in one, because the
+point of the rule is that work is due where there is teaching behind it, and the
+loose reading does not test that. Checked with a fixture calendar of twelve
+weekly dates and two items, one due 2027-03-05 and one due 2027-06-01: the
+first passed, the second failed naming its own date, and a `tests: T9` on the
+second was rejected for citing a clause the thesis does not have.
