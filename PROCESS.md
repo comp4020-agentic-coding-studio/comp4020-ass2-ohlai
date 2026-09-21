@@ -23,16 +23,16 @@ me. I wrote the late penalty into the policies page as prose and
 `provenance.test.ts` went red inside a minute. The tempting fix was exempting the
 page. Its own header comment says a figure like that should render from data, so the
 numbers moved into a `## Policy` section of
-`COURSE.md` and `PolicyTable.astro` renders them. The page now carries no figures
-at all. I added one exemption, scoped to that section, because a rule the course
+`COURSE.md` and `PolicyTable.astro` renders them. The page now carries no figures. I added one exemption, scoped to that section, because a rule the course
 sets about itself has no source to cite ([`e1c683e`](https://github.com/comp4020-agentic-coding-studio/comp4020-ass2-ohlai/commit/e1c683e)).
 
 **A good course sounds like one person with a position.** The register went into
-`CLAUDE.md` with the `unslop` list layered on the brief's, keeping only what has
-no honest use in course copy ([`ca6dc38`](https://github.com/comp4020-agentic-coding-studio/comp4020-ass2-ohlai/commit/ca6dc38)). A fussy rule for a
+`CLAUDE.md` with pstack's
+[`unslop`](https://github.com/cursor/plugins/blob/main/pstack/skills/unslop/SKILL.md)
+list layered on the brief's, keeping only what has no honest use in course copy ([`ca6dc38`](https://github.com/comp4020-agentic-coding-studio/comp4020-ass2-ohlai/commit/ca6dc38)). A fussy rule for a
 university called Slop, except the check had a hole in it. `contentSources`
-matched `.md` and `.mdx`, and the home page is `.astro`, so the rules had never
-reached the first page anybody sees. I widened the scan instead of fixing the em
+matched `.md` and `.mdx`, and the home page is `.astro`, so the rules never reached
+the first page anybody sees. I widened the scan instead of fixing the em
 dash in front of me, which turned up a second hit in a template I would not have
 opened ([`08e1db1`](https://github.com/comp4020-agentic-coding-studio/comp4020-ass2-ohlai/commit/08e1db1)).
 

@@ -756,3 +756,15 @@ two bad portraits, and the base path trap CLAUDE.md documents and I walked
 into anyway. That last one was the hardest to cut, and it went because it is a
 stack fact rather than a design decision. Checked with check:evidence, which
 resolves every cited hash, and by counting.
+
+## deccbc7 docs: the register thread
+
+PROCESS.md gained a fourth claim covering the voice check and the unslop list
+it is built from, which the file had left out entirely. The obvious
+alternative was leaving it: the file was inside the word budget and four
+bolded claims are more structure than three. Went the other way because the
+thread answers the brief's actual question better than anything already in
+there. The check had a hole over the home page, which is a course design
+decision failing in a checkable way, not a preference being enforced. Paid for
+by compressing three paragraphs. Checked by counting and by check:evidence,
+which resolves all eight hashes.
