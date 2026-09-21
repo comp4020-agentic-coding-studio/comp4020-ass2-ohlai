@@ -740,3 +740,19 @@ Checked by measuring rather than looking, as with everything else in this run:
 at 1440 there are 182px clear on each side and 1062px of content against the
 page's 828px, at 1000 it falls back to a 27px gutter on both sides, and there
 is no horizontal overflow at 390, 1000 or 1440.
+
+## e8c1b5e docs: the process log
+
+PROCESS.md replaces the template, at 587 words against the 400 to 600 budget
+with six citations. The budget is the whole problem: twenty-eight commits do
+not fit, and the brief does not ask for them. It asks how course design
+decisions became harness rules and which were deliberately left out. The
+obvious alternative was a chronological account, one paragraph per phase,
+which is what the file wants to become and is also what makes a marker read a
+changelog instead of an argument. Went the other way: three claims about what
+a good course is, each paying off as a mechanism. Dropped the header band's
+width, the caption font, the 169px gap, the selector that matched nothing, the
+two bad portraits, and the base path trap CLAUDE.md documents and I walked
+into anyway. That last one was the hardest to cut, and it went because it is a
+stack fact rather than a design decision. Checked with check:evidence, which
+resolves every cited hash, and by counting.
