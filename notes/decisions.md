@@ -720,3 +720,23 @@ containers, and auto margins left them at the start of the track.
 Three plausible-looking wrong answers is the argument for measuring
 getBoundingClientRect rather than trusting a screenshot, which in this run
 was not available anyway.
+
+## 6669dd8, 14544f6 and 99f06f5, and the header's final width
+
+Three small ones. `14544f6`: the panel above the caption is an instrument
+reading and wants tabular figures, but the caption is four lines of prose
+saying the instrument is lying, and it was inheriting mono from the rule that
+used to style the static artwork's figcaption. The one part a reader actually
+has to read was the hardest part to read. Body font, secondary colour, one
+step up in size. The obvious alternative was leaving it, on the grounds that
+mono is the header's register, but register is not worth legibility on the
+only prose in the band.
+
+`99f06f5`: the band went from 54rem to 62rem against the page's 46rem content
+column, so the title, the bar and the five facts stop feeling cramped. The
+alternative was keeping 54rem, which was already correct in the sense that it
+was wider than the content and centred against the page. It was just tight.
+Checked by measuring rather than looking, as with everything else in this run:
+at 1440 there are 182px clear on each side and 1062px of content against the
+page's 828px, at 1000 it falls back to a 27px gutter on both sides, and there
+is no horizontal overflow at 390, 1000 or 1440.
